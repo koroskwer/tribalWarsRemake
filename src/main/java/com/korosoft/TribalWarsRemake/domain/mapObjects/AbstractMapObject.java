@@ -1,6 +1,6 @@
-package com.korosoft.TribalWarsRemake.mapObjects;
+package com.korosoft.TribalWarsRemake.domain.mapObjects;
 
-import com.korosoft.TribalWarsRemake.Coordinate;
+import com.korosoft.TribalWarsRemake.domain.Coordinate;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

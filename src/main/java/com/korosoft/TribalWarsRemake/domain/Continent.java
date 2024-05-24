@@ -1,10 +1,11 @@
-package com.korosoft.TribalWarsRemake;
+package com.korosoft.TribalWarsRemake.domain;
 
-import com.korosoft.TribalWarsRemake.mapObjects.AbstractMapObject;
-import com.korosoft.TribalWarsRemake.mapObjects.Scenery;
+import com.korosoft.TribalWarsRemake.domain.mapObjects.AbstractMapObject;
+import com.korosoft.TribalWarsRemake.domain.mapObjects.Scenery;
 
 public class Continent {
 
+    private int world;
     private int number;
     private int xOffset;
     private int yOffset;
@@ -14,7 +15,8 @@ public class Continent {
     private final Coordinate topLeftCoordinatesBounds;
     private final Coordinate downRightCoordinatesBounds;
 
-    public Continent(int number) {
+    public Continent(int number, int world) {
+        this.world = world;
         this.number = number;
         this.xOffset = number % 10;
         this.yOffset = number / 10;

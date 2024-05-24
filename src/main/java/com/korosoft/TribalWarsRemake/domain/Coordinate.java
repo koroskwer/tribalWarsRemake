@@ -1,4 +1,4 @@
-package com.korosoft.TribalWarsRemake;
+package com.korosoft.TribalWarsRemake.domain;
 
 public class Coordinate {
 
