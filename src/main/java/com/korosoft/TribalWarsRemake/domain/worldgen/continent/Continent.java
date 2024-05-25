@@ -1,5 +1,6 @@
-package com.korosoft.TribalWarsRemake.domain;
+package com.korosoft.TribalWarsRemake.domain.worldgen.continent;
 
+import com.korosoft.TribalWarsRemake.domain.coordinate.Coordinate;
 import com.korosoft.TribalWarsRemake.domain.mapObjects.AbstractMapObject;
 import com.korosoft.TribalWarsRemake.domain.mapObjects.Scenery;
 

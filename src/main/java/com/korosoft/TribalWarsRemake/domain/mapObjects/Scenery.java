@@ -1,6 +1,6 @@
 package com.korosoft.TribalWarsRemake.domain.mapObjects;
 
-import com.korosoft.TribalWarsRemake.domain.Coordinate;
+import com.korosoft.TribalWarsRemake.domain.coordinate.Coordinate;
 
 public class Scenery extends AbstractMapObject {
 
