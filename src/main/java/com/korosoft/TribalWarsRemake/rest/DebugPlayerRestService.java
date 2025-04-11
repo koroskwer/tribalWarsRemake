@@ -33,9 +33,9 @@ public class DebugPlayerRestService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @PostMapping("/generate/multiple/{amount}")
-    public ResponseEntity<String> generateMultipleAccounts(@PathVariable int amount, @RequestBody(required = false) WorldGenDirection direction) {
+    public ResponseEntity<List<Village>> generateMultipleAccounts(@PathVariable int amount, @RequestBody(required = false) WorldGenDirection direction) {
         List<Player> players = this.playerGenerationService.bulkGeneratePlayers(amount);
         List<Village> villages = this.villageGenerationService.bulkGenerateVillages(players, direction);
-        return new ResponseEntity<>("TODO", HttpStatus.OK);
+        return new ResponseEntity<>(villages, HttpStatus.OK);
     }
 }

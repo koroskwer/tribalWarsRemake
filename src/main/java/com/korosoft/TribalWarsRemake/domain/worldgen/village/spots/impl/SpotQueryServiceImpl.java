@@ -10,6 +10,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 @Component
 public class SpotQueryServiceImpl extends AbstractQueryServiceRoot implements SpotQueryService {
@@ -45,26 +46,27 @@ public class SpotQueryServiceImpl extends AbstractQueryServiceRoot implements Sp
                 .execute();
     }
 
-    public Boolean areEnoughSpotsLeft(WorldGenDirection direction) {
+    public Boolean areEnoughSpotsLeft(WorldGenDirection direction, int amount) {
         /*
         select (count(spots_south_east) < minimum_amount_of_spots) from spots_south_east
 join spot_generation_levels on partition_key = world_generation_direction
 group by minimum_amount_of_spots
          */
         return this.getQueryFactoryWithPartitionKey(direction.getKey())
-                .from(SPOT)
-                .join(SPOT_GENERATION_LEVEL)
-                .on(SPOT.partitionKey.eq(SPOT_GENERATION_LEVEL.direction))
-                .select(SPOT.count().gt(SPOT_GENERATION_LEVEL.minimumAmountOfSpots))
+                .from(SPOT_GENERATION_LEVEL)
+                .leftJoin(SPOT)
+                .on(SPOT_GENERATION_LEVEL.direction.eq(SPOT.partitionKey))
+                .where(SPOT_GENERATION_LEVEL.direction.eq(direction.getKey()))
+                .select(SPOT.count().gt(SPOT_GENERATION_LEVEL.minimumAmountOfSpots.add(amount)))
                 .groupBy(SPOT_GENERATION_LEVEL.minimumAmountOfSpots).fetchOne();
     }
 
     @Override
-    public Spot getRandomSpot(WorldGenDirection direction) {
+    public List<Spot> getRandomSpots(WorldGenDirection direction, int amount) {
         return this.getQueryFactoryWithPartitionKey(direction.getKey())
                 .selectFrom(SPOT)
                 .orderBy(Expressions.stringTemplate("random()").asc())
-                .limit(1)
-                .fetchOne();
+                .limit(amount)
+                .fetch();
     }
 }

@@ -22,9 +22,9 @@ public class SlowSpotGeneratorImpl implements SpotGenerator {
         int radiusStart = 0;
         int radiusEnd = 20;
 
-        if (generationLevel > 1) {
-            radiusStart = 1 + (generationLevel * GameConstants.MAP_GENERATION_STEP_SIZE);
-            radiusEnd = (generationLevel + 1) * GameConstants.MAP_GENERATION_STEP_SIZE;
+        if (generationLevel > 0) {
+            radiusStart = generationLevel * GameConstants.MAP_GENERATION_STEP_SIZE;
+            radiusEnd = (generationLevel + 1) * GameConstants.MAP_GENERATION_STEP_SIZE - 1;
         }
 
         List<Spot> spots = new ArrayList<>();

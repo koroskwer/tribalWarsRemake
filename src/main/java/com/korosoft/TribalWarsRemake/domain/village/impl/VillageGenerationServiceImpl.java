@@ -46,10 +46,16 @@ public class VillageGenerationServiceImpl implements VillageGenerationService {
     public List<Village> bulkGenerateVillages(List<Player> players, WorldGenDirection direction) {
         List<Village> villages = new ArrayList<>();
 
-        for (Player player : players) {
-            Spot spot = this.spotRetrievalService.getRandomSpot(direction);
-            villages.add(this.villageFactory.createVillage(spot, player));
-            this.spotRepository.delete(spot);
+        int iterator = 0;
+        int paginationSize = 20;
+
+        while (players.size() > iterator) {
+            int actualAmountToAdd = Math.min(paginationSize, players.size() - iterator);
+            List<Spot> spots = this.spotRetrievalService.getRandomSpots(direction, actualAmountToAdd);
+            List<Player> playersSublist = players.subList(iterator, iterator + actualAmountToAdd);
+            villages.addAll(this.villageFactory.bulkCreateVillage(spots, playersSublist));
+            this.spotRepository.deleteAll(spots);
+            iterator += paginationSize;
         }
         return villages;
     }

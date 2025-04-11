@@ -7,6 +7,9 @@ import com.korosoft.TribalWarsRemake.domain.worldgen.village.spots.Spot;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class VillageFactory {
@@ -21,5 +24,25 @@ public class VillageFactory {
         Village village = new Village(spot, owner, name);
         this.villageRepository.save(village);
         return village;
+    }
+
+    /**
+     * Size of Spots and Players must be the same
+     *
+     * @param spots
+     * @param players
+     * @return
+     */
+    public List<Village> bulkCreateVillage(List<Spot> spots, List<Player> players) {
+        if (spots.size() != players.size()) {
+            throw new IllegalArgumentException("Amount of Players must be same as amount of spots");
+        }
+        List<Village> villages = new ArrayList<>();
+        for (int i = 0; i < spots.size(); i++) {
+            Player owner = players.get(i);
+            villages.add(new Village(spots.get(i), owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName())));
+        }
+        villageRepository.saveAll(villages);
+        return villages;
     }
 }
