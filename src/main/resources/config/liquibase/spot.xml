@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="4" author="user">
+        <createTable tableName="spots">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="partition_key" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="x_coord" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="y_coord" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <modifySql dbms="postgresql">
+            <append value=" PARTITION BY LIST (partition_key)"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

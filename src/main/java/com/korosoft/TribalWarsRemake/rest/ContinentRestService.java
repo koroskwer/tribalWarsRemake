@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/continent")
 public class ContinentRestService {
 
+    @GetMapping("/dupa")
+    public ResponseEntity<String> getCap(){
+        return new ResponseEntity<>("siurson", HttpStatus.ACCEPTED);
+    }
 
     @GetMapping("/map/{number}")
     public ResponseEntity<String> getContinentMap(){

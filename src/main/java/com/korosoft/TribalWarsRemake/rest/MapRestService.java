@@ -1,20 +1,27 @@
 package com.korosoft.TribalWarsRemake.rest;
 
-import org.springframework.http.HttpStatus;
+import com.korosoft.TribalWarsRemake.domain.map.retrieval.MapRetrievalService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/map")
+import java.io.IOException;
+
+@RestController
+@RequestMapping("/map")
+@AllArgsConstructor
 public class MapRestService {
 
-    @GetMapping("/fullMap/{world}")
-    public ResponseEntity<String> getFullMap(){
-        return new ResponseEntity<>("TODO", HttpStatus.OK);
-    }
+    private MapRetrievalService mapRetrievalService;
 
-    @GetMapping("/generate/fullMap/{world}")
-    public ResponseEntity<String> generateFullMap(){
-        return new ResponseEntity<>("TODO", HttpStatus.OK);
+    @GetMapping(
+            value = "/fullMap",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public ResponseEntity<byte[]> getFullMap() throws IOException {
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(this.mapRetrievalService.getMapImage());
     }
 }
