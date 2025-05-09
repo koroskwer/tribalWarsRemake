@@ -4,11 +4,13 @@ import com.korosoft.TribalWarsRemake.domain.mapObjects.AbstractEntityMapObject;
 import com.korosoft.TribalWarsRemake.domain.worldgen.WorldGenDirection;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.PartitionKey;
 
+@Getter
 @MappedSuperclass
 @FilterDef(
         name = WorldGenerationDirectionPartitionAware.PARTITION_KEY,
@@ -28,10 +30,6 @@ public abstract class WorldGenerationDirectionPartitionAware<T extends WorldGene
     @Column(name = "partition_key")
     @PartitionKey
     private String partitionKey;
-
-    public String getPartitionKey() {
-        return this.partitionKey;
-    }
 
     public T setPartitionKey(String partitionKey) {
         this.partitionKey = partitionKey;

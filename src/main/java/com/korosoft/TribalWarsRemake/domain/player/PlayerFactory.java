@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class PlayerFactory {
 
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
     public Player createPlayer(String username) {
         Player player = new Player(username);
