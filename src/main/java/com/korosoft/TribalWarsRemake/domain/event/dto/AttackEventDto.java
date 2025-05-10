@@ -1,4 +1,6 @@
 package com.korosoft.TribalWarsRemake.domain.event.dto;
 
-public class AttackEventDto {
+import java.io.Serializable;
+
+public record AttackEventDto(int pikemen, int sourceVillageId, int targetVillageId) implements Serializable {
 }

@@ -9,7 +9,7 @@ import org.hibernate.Session;
 public abstract class AbstractQueryServiceRoot {
 
     @PersistenceContext
-    EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public JPAQueryFactory getQueryFactory() {
         return new JPAQueryFactory(JPQLTemplates.DEFAULT, entityManager);

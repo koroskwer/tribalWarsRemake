@@ -9,6 +9,4 @@ public class GameConstants {
 
     public static String MAP_IMAGE_FORMAT = "png";
     public static String DEFAULT_VILLAGE_NAME = "%s's Village";
-
-
 }

@@ -1,20 +1,27 @@
 package com.korosoft.TribalWarsRemake.rest;
 
+import com.korosoft.TribalWarsRemake.domain.event.EventServiceFacade;
 import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.dto.SupportEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/events")
 @AllArgsConstructor
 public class EventRestService {
+
+    private final EventServiceFacade eventServiceFacade;
+
+    @PostMapping("/process/{playerId}")
+    public ResponseEntity<String> processEvents(@PathVariable int playerId) {
+        this.eventServiceFacade.processEvents(playerId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping("/attack")
     public ResponseEntity<String> generateAttackEvent(@RequestBody AttackEventDto attackEventDto) {
         return new ResponseEntity<>(HttpStatus.OK);

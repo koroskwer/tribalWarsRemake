@@ -1,5 +1,9 @@
 package com.korosoft.TribalWarsRemake.domain.event;
 
+import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
+import com.korosoft.TribalWarsRemake.domain.event.dto.SupportEventDto;
+import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
+
 import java.util.List;
 
 interface EventQueryService {
@@ -11,4 +15,10 @@ interface EventQueryService {
     List<AttackEvent> getAttackEvents(int playerId);
 
     List<SupportEvent> getSupportEvents(int playerId);
+
+    void addAttackEvent(AttackEventDto attackEventDto);
+
+    void addSupportEvent(SupportEventDto supportEventDto);
+
+    void addTransportEvent(TransportEventDto transportEventDto);
 }

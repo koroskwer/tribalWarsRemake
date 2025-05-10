@@ -1,10 +1,13 @@
 package com.korosoft.TribalWarsRemake.domain.village;
 
+import com.korosoft.TribalWarsRemake.domain.army.Army;
 import com.korosoft.TribalWarsRemake.domain.mapObjects.AbstractEntityMapObject;
 import com.korosoft.TribalWarsRemake.domain.player.Player;
 import com.korosoft.TribalWarsRemake.domain.worldgen.village.spots.Spot;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "villages")
@@ -16,6 +19,10 @@ public class Village extends AbstractEntityMapObject {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ownerId")
     private Player owner;
+
+    @OneToMany
+    @JoinColumn
+    private Set<Army> armies;
 
     public Village(Spot spot, Player owner, String name) {
         this.xCoord = spot.getXCoord();

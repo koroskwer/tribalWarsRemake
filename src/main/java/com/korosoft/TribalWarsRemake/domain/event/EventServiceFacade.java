@@ -1,6 +1,8 @@
 package com.korosoft.TribalWarsRemake.domain.event;
 
-import com.korosoft.TribalWarsRemake.domain.player.Player;
+import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
+import com.korosoft.TribalWarsRemake.domain.event.dto.SupportEventDto;
+import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +18,25 @@ public class EventServiceFacade {
     private final EventQueryServiceImpl eventQueryService;
     private final Map<EventType, ProcessEventService> processEventServiceMap;
 
-    public void processEvents(Player player) {
-        Queue<AbstractEvent> queue = this.gatherEvents(player.getId());
+    public void processEvents(int playerId) {
+        PriorityQueue<AbstractEvent> queue = this.gatherEvents(playerId);
         this.processEvents(queue);
     }
 
-    private Queue<AbstractEvent> gatherEvents(int playerId) {
-        PriorityQueue<AbstractEvent> queue = new PriorityQueue<>(this.getComparator());
+    public void createAttackEvent(AttackEventDto attackEventDto) {
+
+    }
+
+    public void createSupportEvent(SupportEventDto supportEventDto) {
+
+    }
+
+    public void createTransportEvent(TransportEventDto transportEventDto) {
+
+    }
+
+    private PriorityQueue<AbstractEvent> gatherEvents(int playerId) {
+        PriorityQueue<AbstractEvent> queue = new PriorityQueue<>(this.getEventsComparator());
         queue.addAll(this.eventQueryService.getAllEventsToProcess(playerId));
         return queue;
     }
@@ -31,7 +45,7 @@ public class EventServiceFacade {
         queue.forEach((event) -> this.processEventServiceMap.get(event.getEventType()).processEvent(event));
     }
 
-    private Comparator<AbstractEvent> getComparator() {
+    private Comparator<AbstractEvent> getEventsComparator() {
         return (event1, event2) -> {
             if (event1.getFinishDate().isBefore(event2.getFinishDate())) {
                 return 1;

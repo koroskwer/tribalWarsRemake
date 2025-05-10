@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.List;
@@ -15,6 +16,7 @@ abstract class AbstractEvent extends AbstractEntityRoot {
 
     @Column(name = "status")
     @Getter
+    @Setter
     protected EventStatus eventStatus;
 
     @Column(name = "event_type")
