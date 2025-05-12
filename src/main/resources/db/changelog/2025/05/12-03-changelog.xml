@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1747061949196-25" author="admin">
+        <dropForeignKeyConstraint baseTableName="attack_events_involved_players"
+                                  constraintName="fk_atteveinvpla_on_attack_event"/>
+    </changeSet>
+    <changeSet id="1747061949196-26" author="admin">
+        <dropForeignKeyConstraint baseTableName="attack_events_involved_players"
+                                  constraintName="fk_atteveinvpla_on_player"/>
+    </changeSet>
+    <changeSet id="1747061949196-27" author="admin">
+        <dropForeignKeyConstraint baseTableName="support_events_involved_players"
+                                  constraintName="fk_supeveinvpla_on_player"/>
+    </changeSet>
+    <changeSet id="1747061949196-28" author="admin">
+        <dropForeignKeyConstraint baseTableName="support_events_involved_players"
+                                  constraintName="fk_supeveinvpla_on_support_event"/>
+    </changeSet>
+    <changeSet id="1747061949196-29" author="admin">
+        <dropForeignKeyConstraint baseTableName="transport_events_involved_players"
+                                  constraintName="fk_traeveinvpla_on_player"/>
+    </changeSet>
+    <changeSet id="1747061949196-30" author="admin">
+        <dropForeignKeyConstraint baseTableName="transport_events_involved_players"
+                                  constraintName="fk_traeveinvpla_on_transport_event"/>
+    </changeSet>
+    <changeSet id="1747061949196-13" author="admin">
+        <createSequence incrementBy="50" sequenceName="events_root_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747061949196-14" author="admin">
+        <createTable tableName="events_root">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_events_root"/>
+            </column>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="start_date" type="DATETIME"/>
+            <column name="finish_date" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747061949196-15" author="admin">
+        <createTable tableName="events_root_involved_players">
+            <column name="abstract_event_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="involved_players_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747061949196-16" author="admin">
+        <addColumn tableName="attack_events">
+            <column name="event_root_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1747061949196-17" author="admin">
+        <addColumn tableName="support_events">
+            <column name="event_root_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1747061949196-18" author="admin">
+        <addColumn tableName="transport_events">
+            <column name="event_root_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1747061949196-20" author="admin">
+        <addForeignKeyConstraint baseColumnNames="event_root_id" baseTableName="attack_events"
+                                 constraintName="FK_ATTACK_EVENTS_ON_EVENTROOT" referencedColumnNames="id"
+                                 referencedTableName="events_root"/>
+    </changeSet>
+    <changeSet id="1747061949196-21" author="admin">
+        <addForeignKeyConstraint baseColumnNames="event_root_id" baseTableName="support_events"
+                                 constraintName="FK_SUPPORT_EVENTS_ON_EVENTROOT" referencedColumnNames="id"
+                                 referencedTableName="events_root"/>
+    </changeSet>
+    <changeSet id="1747061949196-22" author="admin">
+        <addForeignKeyConstraint baseColumnNames="event_root_id" baseTableName="transport_events"
+                                 constraintName="FK_TRANSPORT_EVENTS_ON_EVENTROOT" referencedColumnNames="id"
+                                 referencedTableName="events_root"/>
+    </changeSet>
+    <changeSet id="1747061949196-23" author="admin">
+        <addForeignKeyConstraint baseColumnNames="abstract_event_id" baseTableName="events_root_involved_players"
+                                 constraintName="fk_everooinvpla_on_abstract_event" referencedColumnNames="id"
+                                 referencedTableName="events_root"/>
+    </changeSet>
+    <changeSet id="1747061949196-24" author="admin">
+        <addForeignKeyConstraint baseColumnNames="involved_players_id" baseTableName="events_root_involved_players"
+                                 constraintName="fk_everooinvpla_on_player" referencedColumnNames="id"
+                                 referencedTableName="players"/>
+    </changeSet>
+    <changeSet id="1747061949196-31" author="admin">
+        <dropTable cascadeConstraints="true" tableName="attack_events_involved_players"/>
+    </changeSet>
+    <changeSet id="1747061949196-36" author="admin">
+        <dropTable cascadeConstraints="true" tableName="support_events_involved_players"/>
+    </changeSet>
+    <changeSet id="1747061949196-37" author="admin">
+        <dropTable cascadeConstraints="true" tableName="transport_events_involved_players"/>
+    </changeSet>
+    <changeSet id="1747061949196-38" author="admin">
+        <dropColumn columnName="event_type" tableName="attack_events"/>
+
+        <dropColumn columnName="finish_date" tableName="attack_events"/>
+
+        <dropColumn columnName="start_date" tableName="attack_events"/>
+
+        <dropColumn columnName="status" tableName="attack_events"/>
+    </changeSet>
+    <changeSet id="1747061949196-39" author="admin">
+        <dropColumn columnName="event_type" tableName="support_events"/>
+
+        <dropColumn columnName="finish_date" tableName="support_events"/>
+
+        <dropColumn columnName="start_date" tableName="support_events"/>
+
+        <dropColumn columnName="status" tableName="support_events"/>
+    </changeSet>
+    <changeSet id="1747061949196-40" author="admin">
+        <dropColumn columnName="event_type" tableName="transport_events"/>
+
+        <dropColumn columnName="finish_date" tableName="transport_events"/>
+
+        <dropColumn columnName="start_date" tableName="transport_events"/>
+
+        <dropColumn columnName="status" tableName="transport_events"/>
+    </changeSet>
+
+</databaseChangeLog>

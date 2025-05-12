@@ -6,11 +6,12 @@ import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "transport_events")
 @NoArgsConstructor
-class TransportEvent extends AbstractEvent {
+class TransportEvent extends AbstractEventEntity {
 
     @Column(name = "wood")
     public int wood;
@@ -20,7 +21,6 @@ class TransportEvent extends AbstractEvent {
     public int iron;
 
     TransportEvent(Instant start, Instant end) {
-        this.startDate = start;
-        this.finishDate = end;
+        this.eventRoot = new AbstractEvent(EventStatus.READY, EventType.TRANSPORT, start, end, List.of());
     }
 }

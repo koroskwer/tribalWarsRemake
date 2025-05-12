@@ -37,10 +37,14 @@ public class EventServiceFacade {
     @Transactional
     public void processEvents(int playerId) {
         Instant now = clock.instant();
-        PriorityQueue<AbstractEvent> queue = this.gatherEvents(playerId, now);
+        PriorityQueue<AbstractEventEntity> queue = this.gatherEvents(playerId, now);
         Player player = this.playerRepository.findById(playerId).get();
         this.processEvents(queue, player);
+        this.deleteProcessedEvents();
+    }
 
+    private void deleteProcessedEvents() {
+        //TODO implement deletion of processed events
     }
 
     public void createAttackEvent(AttackEventDto attackEventDto) {
@@ -58,26 +62,25 @@ public class EventServiceFacade {
         this.eventQueryService.addTransportEvent(transportEventDto, now);
     }
 
-    private PriorityQueue<AbstractEvent> gatherEvents(int playerId, Instant timestamp) {
-        PriorityQueue<AbstractEvent> queue = new PriorityQueue<>(this.getEventsComparator());
-        //TODO implement locking of events so no event will be processed twice
+    private PriorityQueue<AbstractEventEntity> gatherEvents(int playerId, Instant timestamp) {
+        PriorityQueue<AbstractEventEntity> queue = new PriorityQueue<>(this.getEventsComparator());
         queue.addAll(this.eventQueryService.getAllEventsToProcess(playerId, timestamp));
         return queue;
     }
 
-    private void processEvents(Queue<AbstractEvent> queue, Player player) {
-        Iterator<AbstractEvent> iterator = queue.iterator();
+    private void processEvents(Queue<AbstractEventEntity> queue, Player player) {
+        Iterator<AbstractEventEntity> iterator = queue.iterator();
         while (iterator.hasNext()) {
-            AbstractEvent event = iterator.next();
-            this.processEventServiceMap.get(event.getEventType()).processEvent(event, player);
+            AbstractEventEntity event = iterator.next();
+            this.processEventServiceMap.get(event.eventRoot.getEventType()).processEvent(event.getEventRoot(), player);
             iterator.remove();
         }
         this.playerRepository.save(player);
     }
 
-    private Comparator<AbstractEvent> getEventsComparator() {
+    private Comparator<AbstractEventEntity> getEventsComparator() {
         return (event1, event2) -> {
-            if (event1.getFinishDate().isBefore(event2.getFinishDate())) {
+            if (event1.eventRoot.getFinishDate().isBefore(event2.eventRoot.getFinishDate())) {
                 return 1;
             } else {
                 return -1;

@@ -10,12 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Entity
 @Table(name = "attack_events")
 @NoArgsConstructor
-class AttackEvent extends AbstractEvent {
+class AttackEvent extends AbstractEventEntity {
 
     @OneToOne
     private Army army;
@@ -24,10 +25,8 @@ class AttackEvent extends AbstractEvent {
     @OneToOne
     private Village sourceVillage;
 
-
     AttackEvent(AttackEventDto dto, Instant startDate, Instant endDate, Village targetVillage, Village sourceVillage) {
-        this.startDate = startDate;
-        this.finishDate = endDate;
+        this.eventRoot = new AbstractEvent(EventStatus.READY, EventType.ATTACK, startDate, endDate, List.of());
         this.army = new Army(dto.pikemen(), sourceVillage);
         this.targetVillage = targetVillage;
         this.sourceVillage = sourceVillage;

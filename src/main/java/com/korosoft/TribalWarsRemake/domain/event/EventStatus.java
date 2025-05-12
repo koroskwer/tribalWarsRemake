@@ -2,7 +2,7 @@ package com.korosoft.TribalWarsRemake.domain.event;
 
 import lombok.Getter;
 
-enum EventStatus {
+public enum EventStatus {
     ARCHIVED("archived"), READY("ready");
 
     @Getter

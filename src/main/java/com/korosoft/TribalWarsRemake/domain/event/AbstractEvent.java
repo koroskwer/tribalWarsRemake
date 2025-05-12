@@ -2,25 +2,30 @@ package com.korosoft.TribalWarsRemake.domain.event;
 
 import com.korosoft.TribalWarsRemake.domain.player.Player;
 import com.korosoft.TribalWarsRemake.domain.root.AbstractEntityRoot;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
 import java.util.List;
 
-@MappedSuperclass
-abstract class AbstractEvent extends AbstractEntityRoot {
+@Entity
+@Table(name = "events_root")
+@NoArgsConstructor
+@AllArgsConstructor
+public class AbstractEvent extends AbstractEntityRoot {
 
     @Column(name = "status")
     @Getter
     @Setter
+    @Enumerated(EnumType.STRING)
     protected EventStatus eventStatus;
 
     @Column(name = "event_type")
     @Getter
+    @Enumerated(EnumType.STRING)
     protected EventType eventType;
 
     @Column(name = "start_date")

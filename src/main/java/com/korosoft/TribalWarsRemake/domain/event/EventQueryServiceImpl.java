@@ -27,8 +27,8 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
     private final TransportEventRepository transportEventRepository;
 
     @Override
-    public List<AbstractEvent> getAllEventsToProcess(int playerId, Instant timestamp) {
-        List<AbstractEvent> list = new ArrayList<>();
+    public List<AbstractEventEntity> getAllEventsToProcess(int playerId, Instant timestamp) {
+        List<AbstractEventEntity> list = new ArrayList<>();
         list.addAll(this.getAttackEvents(playerId, timestamp));
         list.addAll(this.getSupportEvents(playerId, timestamp));
         list.addAll(this.getTransportEvents(playerId, timestamp));
@@ -40,7 +40,7 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
         return entityManager.createQuery("""
                         select p
                         from TransportEvent p
-                        where p.eventStatus = :status and p.finishDate = :timestamp
+                        where p.eventRoot.eventStatus = :status and p.eventRoot.finishDate < :timestamp
                         order by p.id
                         """, TransportEvent.class)
                 .setParameter("status", EventStatus.READY)
@@ -52,9 +52,9 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
     @Override
     public List<AttackEvent> getAttackEvents(int playerId, Instant timestamp) {
         return this.getQueryFactory().from(Q_ATTACK_EVENT)
-                .where(Q_ATTACK_EVENT.eventStatus.eq(EventStatus.READY)
-                        .and(Q_ATTACK_EVENT.finishDate.before(timestamp)
-                                .and(Q_ATTACK_EVENT.involvedPlayers.contains(entityManager.getReference(Player.class, playerId)))))
+                .where(Q_ATTACK_EVENT.eventRoot.eventStatus.eq(EventStatus.READY)
+                        .and(Q_ATTACK_EVENT.eventRoot.finishDate.before(timestamp)
+                                .and(Q_ATTACK_EVENT.eventRoot.involvedPlayers.contains(entityManager.getReference(Player.class, playerId)))))
                 .select(Q_ATTACK_EVENT).fetch();
     }
 

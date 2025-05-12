@@ -2,7 +2,7 @@ package com.korosoft.TribalWarsRemake.domain.event;
 
 import lombok.Getter;
 
-enum EventType {
+public enum EventType {
     ATTACK("attack"), SUPPORT("support"), TRANSPORT("transport"), PRODUCTION("production");
 
     @Getter
