@@ -1,6 +1,7 @@
 package com.korosoft.TribalWarsRemake.domain.alliance;
 
 import com.korosoft.TribalWarsRemake.domain.root.AbstractEntityRoot;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Alliance extends AbstractEntityRoot {
 
+    @Column(nullable = false)
     private String name;
     private String tag;
 }

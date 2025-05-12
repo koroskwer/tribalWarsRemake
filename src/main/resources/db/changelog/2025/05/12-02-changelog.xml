@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1747034183122-1" author="admin">
+        <createSequence incrementBy="1" sequenceName="players_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747034183122-2" author="admin">
+        <createSequence incrementBy="1" sequenceName="spots_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747034183122-3" author="admin">
+        <createSequence incrementBy="1" sequenceName="villages_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747034183122-4" author="admin">
+        <createTable tableName="alliances">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_alliances"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-5" author="admin">
+        <createTable tableName="armies">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_armies"/>
+            </column>
+            <column name="pikemen" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="village_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-6" author="admin">
+        <createTable tableName="attack_events">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_attack_events"/>
+            </column>
+            <column name="status" type="SMALLINT"/>
+            <column name="event_type" type="SMALLINT"/>
+            <column name="start_date" type="DATETIME"/>
+            <column name="finish_date" type="DATETIME"/>
+            <column name="army_id" type="INT"/>
+            <column name="target_village_id" type="INT"/>
+            <column name="source_village_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-7" author="admin">
+        <createTable tableName="attack_events_involved_players">
+            <column name="attack_event_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="involved_players_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-8" author="admin">
+        <createTable tableName="players">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_players"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="alliance_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-9" author="admin">
+        <createTable tableName="players_villages">
+            <column name="player_id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_players_villages"/>
+            </column>
+            <column name="villages_id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_players_villages"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-10" author="admin">
+        <createTable tableName="spot_generation_levels">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_spot_generation_levels"/>
+            </column>
+            <column name="generation_level" type="INT"/>
+            <column name="minimum_amount_of_spots" type="BIGINT"/>
+            <column name="world_generation_direction" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-12" author="admin">
+        <createTable tableName="support_events">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_support_events"/>
+            </column>
+            <column name="status" type="SMALLINT"/>
+            <column name="event_type" type="SMALLINT"/>
+            <column name="start_date" type="DATETIME"/>
+            <column name="finish_date" type="DATETIME"/>
+            <column name="pikemen" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-13" author="admin">
+        <createTable tableName="support_events_involved_players">
+            <column name="support_event_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="involved_players_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-14" author="admin">
+        <createTable tableName="transport_events">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_transport_events"/>
+            </column>
+            <column name="status" type="SMALLINT"/>
+            <column name="event_type" type="SMALLINT"/>
+            <column name="start_date" type="DATETIME"/>
+            <column name="finish_date" type="DATETIME"/>
+            <column name="wood" type="INT"/>
+            <column name="clay" type="INT"/>
+            <column name="iron" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-15" author="admin">
+        <createTable tableName="transport_events_involved_players">
+            <column name="transport_event_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="involved_players_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-16" author="admin">
+        <createTable tableName="villages">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_villages"/>
+            </column>
+            <column name="x_coord" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="y_coord" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-17" author="admin">
+        <createTable tableName="villages_armies">
+            <column name="village_id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_villages_armies"/>
+            </column>
+            <column name="armies_id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_villages_armies"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1747034183122-18" author="admin">
+        <addUniqueConstraint columnNames="villages_id" constraintName="uc_players_villages_villages"
+                             tableName="players_villages"/>
+    </changeSet>
+    <changeSet id="1747034183122-19" author="admin">
+        <addUniqueConstraint columnNames="armies_id" constraintName="uc_villages_armies_armies"
+                             tableName="villages_armies"/>
+    </changeSet>
+    <changeSet id="1747034183122-20" author="admin">
+        <addForeignKeyConstraint baseColumnNames="village_id" baseTableName="armies"
+                                 constraintName="FK_ARMIES_ON_VILLAGE" referencedColumnNames="id"
+                                 referencedTableName="villages"/>
+    </changeSet>
+    <changeSet id="1747034183122-21" author="admin">
+        <addForeignKeyConstraint baseColumnNames="army_id" baseTableName="attack_events"
+                                 constraintName="FK_ATTACK_EVENTS_ON_ARMY" referencedColumnNames="id"
+                                 referencedTableName="armies"/>
+    </changeSet>
+    <changeSet id="1747034183122-22" author="admin">
+        <addForeignKeyConstraint baseColumnNames="source_village_id" baseTableName="attack_events"
+                                 constraintName="FK_ATTACK_EVENTS_ON_SOURCEVILLAGE" referencedColumnNames="id"
+                                 referencedTableName="villages"/>
+    </changeSet>
+    <changeSet id="1747034183122-23" author="admin">
+        <addForeignKeyConstraint baseColumnNames="target_village_id" baseTableName="attack_events"
+                                 constraintName="FK_ATTACK_EVENTS_ON_TARGETVILLAGE" referencedColumnNames="id"
+                                 referencedTableName="villages"/>
+    </changeSet>
+    <changeSet id="1747034183122-24" author="admin">
+        <addForeignKeyConstraint baseColumnNames="alliance_id" baseTableName="players"
+                                 constraintName="FK_PLAYERS_ON_ALLIANCE" referencedColumnNames="id"
+                                 referencedTableName="alliances"/>
+    </changeSet>
+    <changeSet id="1747034183122-25" author="admin">
+        <addForeignKeyConstraint baseColumnNames="owner_id" baseTableName="villages"
+                                 constraintName="FK_VILLAGES_ON_OWNER" referencedColumnNames="id"
+                                 referencedTableName="players"/>
+    </changeSet>
+    <changeSet id="1747034183122-26" author="admin">
+        <addForeignKeyConstraint baseColumnNames="attack_event_id" baseTableName="attack_events_involved_players"
+                                 constraintName="fk_atteveinvpla_on_attack_event" referencedColumnNames="id"
+                                 referencedTableName="attack_events"/>
+    </changeSet>
+    <changeSet id="1747034183122-27" author="admin">
+        <addForeignKeyConstraint baseColumnNames="involved_players_id" baseTableName="attack_events_involved_players"
+                                 constraintName="fk_atteveinvpla_on_player" referencedColumnNames="id"
+                                 referencedTableName="players"/>
+    </changeSet>
+    <changeSet id="1747034183122-28" author="admin">
+        <addForeignKeyConstraint baseColumnNames="player_id" baseTableName="players_villages"
+                                 constraintName="fk_plavil_on_player" referencedColumnNames="id"
+                                 referencedTableName="players"/>
+    </changeSet>
+    <changeSet id="1747034183122-29" author="admin">
+        <addForeignKeyConstraint baseColumnNames="villages_id" baseTableName="players_villages"
+                                 constraintName="fk_plavil_on_village" referencedColumnNames="id"
+                                 referencedTableName="villages"/>
+    </changeSet>
+    <changeSet id="1747034183122-30" author="admin">
+        <addForeignKeyConstraint baseColumnNames="involved_players_id" baseTableName="support_events_involved_players"
+                                 constraintName="fk_supeveinvpla_on_player" referencedColumnNames="id"
+                                 referencedTableName="players"/>
+    </changeSet>
+    <changeSet id="1747034183122-31" author="admin">
+        <addForeignKeyConstraint baseColumnNames="support_event_id" baseTableName="support_events_involved_players"
+                                 constraintName="fk_supeveinvpla_on_support_event" referencedColumnNames="id"
+                                 referencedTableName="support_events"/>
+    </changeSet>
+    <changeSet id="1747034183122-32" author="admin">
+        <addForeignKeyConstraint baseColumnNames="involved_players_id" baseTableName="transport_events_involved_players"
+                                 constraintName="fk_traeveinvpla_on_player" referencedColumnNames="id"
+                                 referencedTableName="players"/>
+    </changeSet>
+    <changeSet id="1747034183122-33" author="admin">
+        <addForeignKeyConstraint baseColumnNames="transport_event_id" baseTableName="transport_events_involved_players"
+                                 constraintName="fk_traeveinvpla_on_transport_event" referencedColumnNames="id"
+                                 referencedTableName="transport_events"/>
+    </changeSet>
+    <changeSet id="1747034183122-34" author="admin">
+        <addForeignKeyConstraint baseColumnNames="armies_id" baseTableName="villages_armies"
+                                 constraintName="fk_vilarm_on_army" referencedColumnNames="id"
+                                 referencedTableName="armies"/>
+    </changeSet>
+    <changeSet id="1747034183122-35" author="admin">
+        <addForeignKeyConstraint baseColumnNames="village_id" baseTableName="villages_armies"
+                                 constraintName="fk_vilarm_on_village" referencedColumnNames="id"
+                                 referencedTableName="villages"/>
+    </changeSet>
+
+</databaseChangeLog>

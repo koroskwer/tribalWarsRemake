@@ -4,21 +4,22 @@ import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.dto.SupportEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
 
+import java.time.Instant;
 import java.util.List;
 
 interface EventQueryService {
 
-    List<AbstractEvent> getAllEventsToProcess(int playerId);
+    List<AbstractEvent> getAllEventsToProcess(int playerId, Instant timestamp);
 
-    List<TransportEvent> getTransportEvents(int playerId);
+    List<TransportEvent> getTransportEvents(int playerId, Instant timestamp);
 
-    List<AttackEvent> getAttackEvents(int playerId);
+    List<AttackEvent> getAttackEvents(int playerId, Instant timestamp);
 
-    List<SupportEvent> getSupportEvents(int playerId);
+    List<SupportEvent> getSupportEvents(int playerId, Instant timestamp);
 
-    void addAttackEvent(AttackEventDto attackEventDto);
+    void addAttackEvent(AttackEventDto attackEventDto, Instant timestamp);
 
-    void addSupportEvent(SupportEventDto supportEventDto);
+    void addSupportEvent(SupportEventDto supportEventDto, Instant timestamp);
 
-    void addTransportEvent(TransportEventDto transportEventDto);
+    void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp);
 }

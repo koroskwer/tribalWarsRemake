@@ -11,6 +11,6 @@ import lombok.Getter;
 public class AbstractEntityRoot {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected int id;
 }

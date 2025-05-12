@@ -46,12 +46,12 @@ public class SpotQueryServiceImpl extends AbstractQueryServiceRoot implements Sp
                 .execute();
     }
 
+    /**
+     * select (count(spots_south_east) < minimum_amount_of_spots) from spots_south_east
+     * join spot_generation_levels on partition_key = world_generation_direction
+     * group by minimum_amount_of_spots
+     */
     public Boolean areEnoughSpotsLeft(WorldGenDirection direction, int amount) {
-        /*
-        select (count(spots_south_east) < minimum_amount_of_spots) from spots_south_east
-join spot_generation_levels on partition_key = world_generation_direction
-group by minimum_amount_of_spots
-         */
         return this.getQueryFactoryWithPartitionKey(direction.getKey())
                 .from(SPOT_GENERATION_LEVEL)
                 .leftJoin(SPOT)

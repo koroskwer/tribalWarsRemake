@@ -28,7 +28,7 @@ class AttackEvent extends AbstractEvent {
     AttackEvent(AttackEventDto dto, Instant startDate, Instant endDate, Village targetVillage, Village sourceVillage) {
         this.startDate = startDate;
         this.finishDate = endDate;
-        this.army = new Army(dto.pikemen());
+        this.army = new Army(dto.pikemen(), sourceVillage);
         this.targetVillage = targetVillage;
         this.sourceVillage = sourceVillage;
     }

@@ -24,16 +24,19 @@ public class EventRestService {
 
     @PostMapping("/attack")
     public ResponseEntity<String> generateAttackEvent(@RequestBody AttackEventDto attackEventDto) {
+        this.eventServiceFacade.createAttackEvent(attackEventDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/transport")
     public ResponseEntity<String> generateTransportEvent(@RequestBody TransportEventDto transportEventDto) {
+        this.eventServiceFacade.createTransportEvent(transportEventDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/support")
     public ResponseEntity<String> generateSupportEvent(@RequestBody SupportEventDto supportEventDto) {
+        this.eventServiceFacade.createSupportEvent(supportEventDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
