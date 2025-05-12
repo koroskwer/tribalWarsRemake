@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQueryService {
 
+    private static final QAbstractEventEntity Q_ABSTRACT_EVENT = QAbstractEventEntity.abstractEventEntity;
     private static final QAttackEvent Q_ATTACK_EVENT = QAttackEvent.attackEvent;
     private static final QSupportEvent Q_SUPPORT_EVENT = QSupportEvent.supportEvent;
     private final TransportEventFacade transportEventFacade;
@@ -36,11 +37,14 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
 
     @Override
     public List<AttackEvent> getAttackEvents(int playerId, Instant timestamp) {
-        return this.getQueryFactory().from(Q_ATTACK_EVENT)
+       /* return this.getQueryFactory().from(Q_ATTACK_EVENT)
                 .where(Q_ATTACK_EVENT.eventRoot.eventStatus.eq(EventStatus.READY)
                         .and(Q_ATTACK_EVENT.eventRoot.finishDate.before(timestamp)
-                                .and(Q_ATTACK_EVENT.eventRoot.involvedPlayers.contains(entityManager.getReference(Player.class, playerId)))))
+                                .and(Q_ATTACK_EVENT.eventRoot.involvedPlayers.contains(this.entityManager.getReference(Player.class, playerId)))))
                 .select(Q_ATTACK_EVENT).fetch();
+
+        */
+        return List.of();
     }
 
     @Override
@@ -64,5 +68,13 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
     @Override
     public void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp) {
         this.transportEventFacade.addTransportEvent(transportEventDto, timestamp);
+    }
+
+    @Override
+    public void deleteEvents(int playerId, Instant timestamp) {
+        this.getQueryFactory().delete(Q_ABSTRACT_EVENT)
+                .where(Q_ABSTRACT_EVENT.finishDate.before(timestamp)
+                        .and(Q_ABSTRACT_EVENT.involvedPlayers.contains((this.entityManager.getReference(Player.class, playerId)))
+                                .and(Q_ABSTRACT_EVENT.eventStatus.eq(EventStatus.READY)))).execute();
     }
 }

@@ -40,11 +40,11 @@ public class EventServiceFacade {
         PriorityQueue<AbstractEvent> queue = this.gatherEvents(playerId, now);
         Player player = this.playerRepository.findById(playerId).get();
         this.processEvents(queue, player);
-        this.deleteProcessedEvents();
+        this.deleteProcessedEvents(playerId, now);
     }
 
-    private void deleteProcessedEvents() {
-        //TODO implement deletion of processed events
+    private void deleteProcessedEvents(int playerId, Instant now) {
+        this.eventQueryService.deleteEvents(playerId, now);
     }
 
     public void createAttackEvent(AttackEventDto attackEventDto) {

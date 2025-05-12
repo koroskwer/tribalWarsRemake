@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1747080050967-14" author="admin">
+        <dropForeignKeyConstraint baseTableName="events_root_involved_players"
+                                  constraintName="fk_everooinvpla_on_abstract_event"/>
+    </changeSet>
+    <changeSet id="1747080050967-7" author="admin">
+        <addColumn tableName="events_root_involved_players">
+            <column name="abstract_event_entity_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1747080050967-8" author="admin">
+        <addNotNullConstraint columnName="abstract_event_entity_id" tableName="events_root_involved_players"/>
+    </changeSet>
+    <changeSet id="1747080050967-9" author="admin">
+        <addUniqueConstraint columnNames="event_root_id" constraintName="uc_attack_events_event_root"
+                             tableName="attack_events"/>
+    </changeSet>
+    <changeSet id="1747080050967-10" author="admin">
+        <addUniqueConstraint columnNames="event_root_id" constraintName="uc_support_events_event_root"
+                             tableName="support_events"/>
+    </changeSet>
+    <changeSet id="1747080050967-11" author="admin">
+        <addUniqueConstraint columnNames="event_root_id" constraintName="uc_transport_events_event_root"
+                             tableName="transport_events"/>
+    </changeSet>
+    <changeSet id="1747080050967-13" author="admin">
+        <addForeignKeyConstraint baseColumnNames="abstract_event_entity_id" baseTableName="events_root_involved_players"
+                                 constraintName="fk_everooinvpla_on_abstract_event_entity" referencedColumnNames="id"
+                                 referencedTableName="events_root"/>
+    </changeSet>
+    <changeSet id="1747080050967-19" author="admin">
+        <dropColumn columnName="abstract_event_id" tableName="events_root_involved_players"/>
+    </changeSet>
+    <changeSet id="1747080050967-1" author="admin">
+        <addNotNullConstraint columnDataType="INT" columnName="event_root_id" tableName="attack_events"
+                              validate="true"/>
+    </changeSet>
+    <changeSet id="1747080050967-2" author="admin">
+        <addNotNullConstraint columnDataType="INT" columnName="event_root_id" tableName="support_events"
+                              validate="true"/>
+    </changeSet>
+    <changeSet id="1747080050967-3" author="admin">
+        <addNotNullConstraint columnDataType="INT" columnName="event_root_id" tableName="transport_events"
+                              validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

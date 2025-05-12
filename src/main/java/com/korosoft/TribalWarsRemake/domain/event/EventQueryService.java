@@ -20,4 +20,12 @@ interface EventQueryService {
     void addSupportEvent(SupportEventDto supportEventDto, Instant timestamp);
 
     void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp);
+
+    /**
+     * Deletes events which end date predates given timestamp, for the given player.
+     *
+     * @param playerId  id of the player
+     * @param timestamp cutoff point for deletion of events. Only events before this point in time will be deleted
+     */
+    void deleteEvents(int playerId, Instant timestamp);
 }
