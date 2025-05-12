@@ -3,7 +3,6 @@ package com.korosoft.TribalWarsRemake.domain.worldgen.village.spots;
 import com.korosoft.TribalWarsRemake.domain.root.WorldGenerationDirectionPartitionAware;
 import com.korosoft.TribalWarsRemake.domain.worldgen.WorldGenDirection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "spots")
 @NoArgsConstructor
-@SequenceGenerator(name = "default_gen", sequenceName = "spots_id_seq", allocationSize = 1)
 public class Spot extends WorldGenerationDirectionPartitionAware<Spot> {
 
     public Spot(int xCoord, int yCoord, WorldGenDirection direction) {

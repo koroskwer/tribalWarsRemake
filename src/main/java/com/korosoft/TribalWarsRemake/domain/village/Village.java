@@ -12,7 +12,6 @@ import java.util.Set;
 @Entity
 @Table(name = "villages")
 @NoArgsConstructor
-@SequenceGenerator(name = "default_gen", sequenceName = "villages_id_seq", allocationSize = 1)
 public class Village extends AbstractEntityMapObject {
 
     @Column(nullable = false)

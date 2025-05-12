@@ -13,7 +13,6 @@ import java.util.Set;
 @Entity
 @Table(name = "players")
 @NoArgsConstructor
-@SequenceGenerator(name = "default_gen", sequenceName = "players_id_seq", allocationSize = 1)
 public class Player extends AbstractEntityRoot {
 
     @Getter

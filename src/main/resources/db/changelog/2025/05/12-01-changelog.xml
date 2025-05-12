@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1747058952087-4" author="admin">
+        <createSequence incrementBy="50" sequenceName="alliances_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-5" author="admin">
+        <createSequence incrementBy="50" sequenceName="armies_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-6" author="admin">
+        <createSequence incrementBy="50" sequenceName="attack_events_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-7" author="admin">
+        <createSequence incrementBy="50" sequenceName="players_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-8" author="admin">
+        <createSequence incrementBy="50" sequenceName="spot_generation_levels_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-9" author="admin">
+        <createSequence incrementBy="50" sequenceName="spots_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-10" author="admin">
+        <createSequence incrementBy="50" sequenceName="support_events_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-11" author="admin">
+        <createSequence incrementBy="50" sequenceName="transport_events_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-12" author="admin">
+        <createSequence incrementBy="50" sequenceName="villages_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1747058952087-18" author="admin">
+        <dropSequence sequenceName="players_id_seq"/>
+    </changeSet>
+    <changeSet id="1747058952087-19" author="admin">
+        <dropSequence sequenceName="spots_id_seq"/>
+    </changeSet>
+    <changeSet id="1747058952087-20" author="admin">
+        <dropSequence sequenceName="villages_id_seq"/>
+    </changeSet>
+</databaseChangeLog>
