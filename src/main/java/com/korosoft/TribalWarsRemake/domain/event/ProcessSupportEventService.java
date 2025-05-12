@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 class ProcessSupportEventService implements ProcessEventService {
 
     @Override
-    public void processEvent(AbstractEvent event, Player player) {
+    public void processEvent(AbstractEventEntity event, Player player) {
 
     }
 

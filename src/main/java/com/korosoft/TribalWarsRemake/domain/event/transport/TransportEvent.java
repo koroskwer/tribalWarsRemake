@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "transport_events")
 @NoArgsConstructor
-class TransportEvent extends AbstractEventEntity {
+class TransportEvent extends AbstractEvent {
 
     @Column(name = "wood")
     public int wood;
@@ -25,6 +25,6 @@ class TransportEvent extends AbstractEventEntity {
     public int iron;
 
     TransportEvent(Instant start, Instant end) {
-        this.eventRoot = new AbstractEvent(EventStatus.READY, EventType.TRANSPORT, start, end, List.of());
+        this.eventRoot = new AbstractEventEntity(EventStatus.READY, EventType.TRANSPORT, start, end, List.of());
     }
 }

@@ -10,15 +10,15 @@ import java.util.List;
 @Entity
 @Table(name = "support_events")
 @NoArgsConstructor
-class SupportEvent extends AbstractEventEntity {
+class SupportEvent extends AbstractEvent {
 
     @Column(name = "pikemen")
     public int pikemen;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private AbstractEvent eventRoot;
+    private AbstractEventEntity eventRoot;
 
     SupportEvent(Instant start, Instant end) {
-        this.eventRoot = new AbstractEvent(EventStatus.READY, EventType.TRANSPORT, start, end, List.of());
+        this.eventRoot = new AbstractEventEntity(EventStatus.READY, EventType.TRANSPORT, start, end, List.of());
     }
 }

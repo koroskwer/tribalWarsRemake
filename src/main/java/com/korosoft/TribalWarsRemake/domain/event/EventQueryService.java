@@ -9,7 +9,7 @@ import java.util.List;
 
 interface EventQueryService {
 
-    List<AbstractEventEntity> getAllEventsToProcess(int playerId, Instant timestamp);
+    List<AbstractEvent> getAllEventsToProcess(int playerId, Instant timestamp);
 
     List<AttackEvent> getAttackEvents(int playerId, Instant timestamp);
 

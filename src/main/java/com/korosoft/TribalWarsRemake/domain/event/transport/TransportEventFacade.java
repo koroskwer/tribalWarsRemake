@@ -1,6 +1,6 @@
 package com.korosoft.TribalWarsRemake.domain.event.transport;
 
-import com.korosoft.TribalWarsRemake.domain.event.AbstractEventEntity;
+import com.korosoft.TribalWarsRemake.domain.event.AbstractEvent;
 import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class TransportEventFacade {
 
     private final TransportEventQueryService transportQueryService;
 
-    public List<AbstractEventEntity> getTransportEvents(int playerId, Instant timestamp) {
+    public List<AbstractEvent> getTransportEvents(int playerId, Instant timestamp) {
         return this.transportQueryService.getTransportEvents(playerId, timestamp);
     }
 

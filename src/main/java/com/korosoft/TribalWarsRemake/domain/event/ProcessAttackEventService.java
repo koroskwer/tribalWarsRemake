@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 class ProcessAttackEventService implements ProcessEventService {
 
     @Override
-    public void processEvent(AbstractEvent event, Player player) {
+    public void processEvent(AbstractEventEntity event, Player player) {
         // TODO implement battle module
     }
 

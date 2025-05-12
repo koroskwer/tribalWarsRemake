@@ -37,7 +37,7 @@ public class EventServiceFacade {
     @Transactional
     public void processEvents(int playerId) {
         Instant now = clock.instant();
-        PriorityQueue<AbstractEventEntity> queue = this.gatherEvents(playerId, now);
+        PriorityQueue<AbstractEvent> queue = this.gatherEvents(playerId, now);
         Player player = this.playerRepository.findById(playerId).get();
         this.processEvents(queue, player);
         this.deleteProcessedEvents();
@@ -62,23 +62,23 @@ public class EventServiceFacade {
         this.eventQueryService.addTransportEvent(transportEventDto, now);
     }
 
-    private PriorityQueue<AbstractEventEntity> gatherEvents(int playerId, Instant timestamp) {
-        PriorityQueue<AbstractEventEntity> queue = new PriorityQueue<>(this.getEventsComparator());
+    private PriorityQueue<AbstractEvent> gatherEvents(int playerId, Instant timestamp) {
+        PriorityQueue<AbstractEvent> queue = new PriorityQueue<>(this.getEventsComparator());
         queue.addAll(this.eventQueryService.getAllEventsToProcess(playerId, timestamp));
         return queue;
     }
 
-    private void processEvents(Queue<AbstractEventEntity> queue, Player player) {
-        Iterator<AbstractEventEntity> iterator = queue.iterator();
+    private void processEvents(Queue<AbstractEvent> queue, Player player) {
+        Iterator<AbstractEvent> iterator = queue.iterator();
         while (iterator.hasNext()) {
-            AbstractEventEntity event = iterator.next();
+            AbstractEvent event = iterator.next();
             this.processEventServiceMap.get(event.eventRoot.getEventType()).processEvent(event.getEventRoot(), player);
             iterator.remove();
         }
         this.playerRepository.save(player);
     }
 
-    private Comparator<AbstractEventEntity> getEventsComparator() {
+    private Comparator<AbstractEvent> getEventsComparator() {
         return (event1, event2) -> {
             if (event1.eventRoot.getFinishDate().isBefore(event2.eventRoot.getFinishDate())) {
                 return 1;

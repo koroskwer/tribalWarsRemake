@@ -5,7 +5,7 @@ import com.korosoft.TribalWarsRemake.domain.player.Player;
 class ProcessResourceProductionEventService implements ProcessEventService {
 
     @Override
-    public void processEvent(AbstractEvent event, Player player) {
+    public void processEvent(AbstractEventEntity event, Player player) {
 
     }
 

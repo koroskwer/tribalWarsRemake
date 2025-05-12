@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "attack_events")
 @NoArgsConstructor
-class AttackEvent extends AbstractEventEntity {
+class AttackEvent extends AbstractEvent {
 
     @OneToOne
     private Army army;
@@ -26,7 +26,7 @@ class AttackEvent extends AbstractEventEntity {
     private Village sourceVillage;
 
     AttackEvent(AttackEventDto dto, Instant startDate, Instant endDate, Village targetVillage, Village sourceVillage) {
-        this.eventRoot = new AbstractEvent(EventStatus.READY, EventType.ATTACK, startDate, endDate, List.of());
+        this.eventRoot = new AbstractEventEntity(EventStatus.READY, EventType.ATTACK, startDate, endDate, List.of());
         this.army = new Army(dto.pikemen(), sourceVillage);
         this.targetVillage = targetVillage;
         this.sourceVillage = sourceVillage;
