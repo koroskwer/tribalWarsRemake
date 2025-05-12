@@ -1,5 +1,9 @@
-package com.korosoft.TribalWarsRemake.domain.event;
+package com.korosoft.TribalWarsRemake.domain.event.transport;
 
+import com.korosoft.TribalWarsRemake.domain.event.AbstractEvent;
+import com.korosoft.TribalWarsRemake.domain.event.AbstractEventEntity;
+import com.korosoft.TribalWarsRemake.domain.event.EventStatus;
+import com.korosoft.TribalWarsRemake.domain.event.EventType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

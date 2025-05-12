@@ -1,5 +1,8 @@
-package com.korosoft.TribalWarsRemake.domain.event;
+package com.korosoft.TribalWarsRemake.domain.event.transport;
 
+import com.korosoft.TribalWarsRemake.domain.event.AbstractEvent;
+import com.korosoft.TribalWarsRemake.domain.event.EventType;
+import com.korosoft.TribalWarsRemake.domain.event.ProcessEventService;
 import com.korosoft.TribalWarsRemake.domain.player.Player;
 import org.springframework.stereotype.Component;
 
