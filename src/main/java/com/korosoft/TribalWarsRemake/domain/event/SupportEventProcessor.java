@@ -4,10 +4,10 @@ import com.korosoft.TribalWarsRemake.domain.player.Player;
 import org.springframework.stereotype.Component;
 
 @Component
-class SupportEventProcessor implements EventProcessor {
+class SupportEventProcessor implements EventProcessor<SupportEvent> {
 
     @Override
-    public void processEvent(AbstractEventEntity event, Player player) {
+    public void processEvent(SupportEvent event, Player player) {
 
     }
 

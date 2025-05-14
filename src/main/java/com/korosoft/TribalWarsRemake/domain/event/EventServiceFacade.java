@@ -72,7 +72,7 @@ public class EventServiceFacade {
         Iterator<AbstractEvent> iterator = queue.iterator();
         while (iterator.hasNext()) {
             AbstractEvent event = iterator.next();
-            this.processEventServiceMap.get(event.eventRoot.getEventType()).processEvent(event.getEventRoot(), player);
+            this.processEventServiceMap.get(event.eventRoot.getEventType()).processEvent(event, player);
             iterator.remove();
         }
         this.playerRepository.save(player);

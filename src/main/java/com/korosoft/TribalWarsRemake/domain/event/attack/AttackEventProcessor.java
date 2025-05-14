@@ -7,10 +7,10 @@ import com.korosoft.TribalWarsRemake.domain.player.Player;
 import org.springframework.stereotype.Component;
 
 @Component
-class AttackEventProcessor implements EventProcessor {
+class AttackEventProcessor implements EventProcessor<AttackEvent> {
 
     @Override
-    public void processEvent(AbstractEventEntity event, Player player) {
+    public void processEvent(AttackEvent event, Player player) {
         // TODO implement battle module
     }
 
