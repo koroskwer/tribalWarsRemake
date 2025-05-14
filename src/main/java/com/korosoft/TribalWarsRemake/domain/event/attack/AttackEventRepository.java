@@ -1,4 +1,4 @@
-package com.korosoft.TribalWarsRemake.domain.event;
+package com.korosoft.TribalWarsRemake.domain.event.attack;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

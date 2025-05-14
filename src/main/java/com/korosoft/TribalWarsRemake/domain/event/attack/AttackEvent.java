@@ -1,6 +1,10 @@
-package com.korosoft.TribalWarsRemake.domain.event;
+package com.korosoft.TribalWarsRemake.domain.event.attack;
 
 import com.korosoft.TribalWarsRemake.domain.army.Army;
+import com.korosoft.TribalWarsRemake.domain.event.AbstractEvent;
+import com.korosoft.TribalWarsRemake.domain.event.AbstractEventEntity;
+import com.korosoft.TribalWarsRemake.domain.event.EventStatus;
+import com.korosoft.TribalWarsRemake.domain.event.EventType;
 import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
 import com.korosoft.TribalWarsRemake.domain.village.Village;
 import jakarta.persistence.Entity;

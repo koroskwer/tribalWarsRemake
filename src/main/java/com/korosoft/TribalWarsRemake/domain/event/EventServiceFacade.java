@@ -22,14 +22,14 @@ public class EventServiceFacade {
 
     private final EventQueryServiceImpl eventQueryService;
     private final PlayerRepository playerRepository;
-    private final Map<EventType, ProcessEventService> processEventServiceMap;
+    private final Map<EventType, EventProcessor> processEventServiceMap;
     private final Clock clock;
 
     @Autowired
-    EventServiceFacade(EventQueryServiceImpl eventQueryService, PlayerRepository playerRepository, List<ProcessEventService> processEventServiceList, Clock clock) {
+    EventServiceFacade(EventQueryServiceImpl eventQueryService, PlayerRepository playerRepository, List<EventProcessor> eventProcessorList, Clock clock) {
         this.eventQueryService = eventQueryService;
         this.playerRepository = playerRepository;
-        this.processEventServiceMap = processEventServiceList.stream().collect(Collectors.toMap(ProcessEventService::getEventType, Function.identity()));
+        this.processEventServiceMap = eventProcessorList.stream().collect(Collectors.toMap(EventProcessor::getEventType, Function.identity()));
         this.clock = clock;
     }
 

@@ -11,10 +11,6 @@ interface EventQueryService {
 
     List<AbstractEvent> getAllEventsToProcess(int playerId, Instant timestamp);
 
-    List<AttackEvent> getAttackEvents(int playerId, Instant timestamp);
-
-    List<SupportEvent> getSupportEvents(int playerId, Instant timestamp);
-
     void addAttackEvent(AttackEventDto attackEventDto, Instant timestamp);
 
     void addSupportEvent(SupportEventDto supportEventDto, Instant timestamp);
