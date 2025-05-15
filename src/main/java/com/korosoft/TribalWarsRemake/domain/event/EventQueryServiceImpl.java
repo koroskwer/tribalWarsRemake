@@ -5,6 +5,7 @@ import com.korosoft.TribalWarsRemake.domain.event.attack.AttackEventFacade;
 import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.dto.SupportEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
+import com.korosoft.TribalWarsRemake.domain.event.support.SupportEventFacade;
 import com.korosoft.TribalWarsRemake.domain.event.transport.TransportEventFacade;
 import com.korosoft.TribalWarsRemake.domain.player.Player;
 import com.korosoft.TribalWarsRemake.domain.root.AbstractQueryServiceRoot;
@@ -22,11 +23,14 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
     private static final QAbstractEventEntity Q_ABSTRACT_EVENT = QAbstractEventEntity.abstractEventEntity;
     private final TransportEventFacade transportEventFacade;
     private final AttackEventFacade attackEventFacade;
+    private final SupportEventFacade supportEventFacade;
+
     @Override
     public List<AbstractEvent> getAllEventsToProcess(int playerId, Instant timestamp) {
         List<AbstractEvent> list = new ArrayList<>();
         list.addAll(this.attackEventFacade.getAttackEvents(playerId, timestamp));
         list.addAll(this.transportEventFacade.getTransportEvents(playerId, timestamp));
+        list.addAll(this.supportEventFacade.getSupportEvents(playerId, timestamp));
         return list;
     }
 
@@ -37,7 +41,7 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
 
     @Override
     public void addSupportEvent(SupportEventDto supportEventDto, Instant timestamp) {
-
+        this.supportEventFacade.addSupportEvent(supportEventDto, timestamp);
     }
 
     @Override

@@ -6,19 +6,21 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @AllArgsConstructor
 public class TransportEventFacade {
 
-    private final TransportEventQueryService transportQueryService;
+    private final TransportEventRetrievalService transportEventRetrievalService;
+    private final TransportEventCreationService transportEventCreationService;
 
     public List<AbstractEvent> getTransportEvents(int playerId, Instant timestamp) {
-        return this.transportQueryService.getTransportEvents(playerId, timestamp);
+        return new ArrayList<>(this.transportEventRetrievalService.getEvents(playerId, timestamp));
     }
 
     public void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp) {
-        this.transportQueryService.addTransportEvent(transportEventDto, timestamp);
+        this.transportEventCreationService.addEvent(transportEventDto, timestamp);
     }
 }

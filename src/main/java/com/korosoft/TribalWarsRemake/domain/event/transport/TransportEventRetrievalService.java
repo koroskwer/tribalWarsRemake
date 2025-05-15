@@ -1,10 +1,8 @@
 package com.korosoft.TribalWarsRemake.domain.event.transport;
 
-import com.korosoft.TribalWarsRemake.domain.event.AbstractEvent;
+import com.korosoft.TribalWarsRemake.domain.event.AbstractEventRetrievalService;
 import com.korosoft.TribalWarsRemake.domain.event.EventStatus;
-import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
 import com.korosoft.TribalWarsRemake.domain.root.AbstractQueryServiceRoot;
-import lombok.AllArgsConstructor;
 import org.hibernate.LockMode;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
@@ -13,14 +11,9 @@ import java.time.Instant;
 import java.util.List;
 
 @Component
-@AllArgsConstructor
-class TransportEventQueryServiceImpl extends AbstractQueryServiceRoot implements TransportEventQueryService {
-
-    private static final QTransportEvent Q_TRANSPORT_EVENT = QTransportEvent.transportEvent;
-    private final TransportEventRepository transportEventRepository;
-
+class TransportEventRetrievalService extends AbstractQueryServiceRoot implements AbstractEventRetrievalService<TransportEvent> {
     @Override
-    public List<AbstractEvent> getTransportEvents(int playerId, Instant timestamp) {
+    public List<TransportEvent> getEvents(int playerId, Instant timestamp) {
         return entityManager.createQuery("""
                         select p
                         from TransportEvent p
@@ -31,15 +24,5 @@ class TransportEventQueryServiceImpl extends AbstractQueryServiceRoot implements
                 .setParameter("timestamp", timestamp)
                 .unwrap(Query.class)
                 .setHibernateLockMode(LockMode.UPGRADE_SKIPLOCKED).getResultList();
-    }
-
-    @Override
-    public void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp) {
-        this.transportEventRepository.save(new TransportEvent(timestamp, timestamp));
-    }
-
-    @Override
-    public void removeTransportEvents(int playerId, Instant timestamp) {
-
     }
 }

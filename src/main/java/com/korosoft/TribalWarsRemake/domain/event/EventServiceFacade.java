@@ -38,9 +38,15 @@ public class EventServiceFacade {
     public void processEvents(int playerId) {
         Instant now = clock.instant();
         PriorityQueue<AbstractEvent> queue = this.gatherEvents(playerId, now);
-        Player player = this.playerRepository.findById(playerId).get();
-        this.processEvents(queue, player);
-        this.deleteProcessedEvents(playerId, now);
+        Optional<Player> playerOptional = playerRepository.findById(playerId);
+        if (playerOptional.isPresent()) {
+            Player player = playerOptional.get();
+            this.processEvents(queue, player);
+            this.deleteProcessedEvents(playerId, now);
+            return;
+        }
+        //TODO move it to logs instead
+        System.out.println("No player found with id " + playerId);
     }
 
     private void deleteProcessedEvents(int playerId, Instant now) {
