@@ -5,6 +5,7 @@ import com.korosoft.TribalWarsRemake.domain.mapObjects.AbstractEntityMapObject;
 import com.korosoft.TribalWarsRemake.domain.player.Player;
 import com.korosoft.TribalWarsRemake.domain.worldgen.village.spots.Spot;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "villages")
 @NoArgsConstructor
+@Getter
 public class Village extends AbstractEntityMapObject {
 
     @Column(nullable = false)

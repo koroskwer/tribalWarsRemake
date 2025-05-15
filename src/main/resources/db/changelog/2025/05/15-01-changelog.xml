@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1747337592108-4" author="admin">
+        <addColumn tableName="support_events">
+            <column name="army_id" type="INT"/>
+            <column name="source_village_id" type="INT"/>
+            <column name="target_village_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1747337592108-8" author="admin">
+        <addForeignKeyConstraint baseColumnNames="army_id" baseTableName="support_events"
+                                 constraintName="FK_SUPPORT_EVENTS_ON_ARMY" referencedColumnNames="id"
+                                 referencedTableName="armies"/>
+    </changeSet>
+    <changeSet id="1747337592108-9" author="admin">
+        <addForeignKeyConstraint baseColumnNames="source_village_id" baseTableName="support_events"
+                                 constraintName="FK_SUPPORT_EVENTS_ON_SOURCEVILLAGE" referencedColumnNames="id"
+                                 referencedTableName="villages"/>
+    </changeSet>
+    <changeSet id="1747337592108-10" author="admin">
+        <addForeignKeyConstraint baseColumnNames="target_village_id" baseTableName="support_events"
+                                 constraintName="FK_SUPPORT_EVENTS_ON_TARGETVILLAGE" referencedColumnNames="id"
+                                 referencedTableName="villages"/>
+    </changeSet>
+    <changeSet id="1747337592108-11" author="admin">
+        <addForeignKeyConstraint baseColumnNames="abstract_event_entity_id" baseTableName="events_root_involved_players"
+                                 constraintName="fk_everooinvpla_on_abstract_event_entity" referencedColumnNames="id"
+                                 referencedTableName="events_root"/>
+    </changeSet>
+    <changeSet id="1747337592108-16" author="admin">
+        <dropColumn columnName="pikemen" tableName="support_events"/>
+    </changeSet>
+
+</databaseChangeLog>

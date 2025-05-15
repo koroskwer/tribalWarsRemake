@@ -28,6 +28,7 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
     @Override
     public List<AbstractEvent> getAllEventsToProcess(int playerId, Instant timestamp) {
         List<AbstractEvent> list = new ArrayList<>();
+        //TODO make this part concurrent
         list.addAll(this.attackEventFacade.getAttackEvents(playerId, timestamp));
         list.addAll(this.transportEventFacade.getTransportEvents(playerId, timestamp));
         list.addAll(this.supportEventFacade.getSupportEvents(playerId, timestamp));

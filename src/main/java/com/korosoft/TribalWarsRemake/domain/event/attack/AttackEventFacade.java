@@ -1,7 +1,6 @@
 package com.korosoft.TribalWarsRemake.domain.event.attack;
 
 import com.korosoft.TribalWarsRemake.domain.event.AbstractEvent;
-import com.korosoft.TribalWarsRemake.domain.event.AbstractEventRetrievalService;
 import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
