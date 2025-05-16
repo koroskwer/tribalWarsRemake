@@ -2,6 +2,7 @@ package com.korosoft.TribalWarsRemake.domain.village;
 
 import com.korosoft.TribalWarsRemake.config.GameConstants;
 import com.korosoft.TribalWarsRemake.domain.player.Player;
+import com.korosoft.TribalWarsRemake.domain.resources.ResourcesFacade;
 import com.korosoft.TribalWarsRemake.domain.village.repository.VillageRepository;
 import com.korosoft.TribalWarsRemake.domain.worldgen.village.spots.Spot;
 import lombok.AllArgsConstructor;
@@ -15,13 +16,14 @@ import java.util.List;
 public class VillageFactory {
 
     private final VillageRepository villageRepository;
+    private final ResourcesFacade resourcesFacade;
 
     public Village createVillage(Spot spot, Player owner) {
         return this.createVillage(spot, owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName()));
     }
 
     public Village createVillage(Spot spot, Player owner, String name) {
-        Village village = new Village(spot, owner, name);
+        Village village = new Village(spot, owner, name, this.resourcesFacade.createResources());
         this.villageRepository.save(village);
         return village;
     }
@@ -40,9 +42,9 @@ public class VillageFactory {
         List<Village> villages = new ArrayList<>();
         for (int i = 0; i < spots.size(); i++) {
             Player owner = players.get(i);
-            villages.add(new Village(spots.get(i), owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName())));
+            villages.add(new Village(spots.get(i), owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName()), this.resourcesFacade.createResources()));
         }
-        villageRepository.saveAll(villages);
+        this.villageRepository.saveAll(villages);
         return villages;
     }
 }
