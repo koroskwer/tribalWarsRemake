@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -33,11 +35,16 @@ public class Village extends AbstractEntityMapObject {
     @OneToMany
     private Set<Army> armies;
 
-    public Village(Spot spot, Player owner, String name, Resources resources) {
+    @Column(nullable = false)
+    private Instant lastResourceGeneration;
+
+    public Village(Spot spot, Player owner, String name, Resources resources, Instant lastResourceGeneration) {
         this.xCoord = spot.getXCoord();
         this.yCoord = spot.getYCoord();
         this.name = name;
         this.owner = owner;
         this.resources = resources;
+        this.armies = new HashSet<>();
+        this.lastResourceGeneration = lastResourceGeneration;
     }
 }

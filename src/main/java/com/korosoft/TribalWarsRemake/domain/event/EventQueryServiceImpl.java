@@ -28,7 +28,7 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
     @Override
     public List<AbstractEvent> getAllEventsToProcess(int playerId, Instant timestamp) {
         List<AbstractEvent> list = new ArrayList<>();
-        //TODO make this part concurrent
+        //TODO maybe make this part concurrent?
         list.addAll(this.attackEventFacade.getAttackEvents(playerId, timestamp));
         list.addAll(this.transportEventFacade.getTransportEvents(playerId, timestamp));
         list.addAll(this.supportEventFacade.getSupportEvents(playerId, timestamp));
@@ -37,16 +37,22 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
 
     @Override
     public void addAttackEvent(AttackEventDto attackEventDto, Instant timestamp) {
+        // TODO remove army from village and validate if enough troops are present to send the attack
+        // TODO add generation resource event before adding other event
         this.attackEventFacade.addAttackEvent(attackEventDto, timestamp);
     }
 
     @Override
     public void addSupportEvent(SupportEventDto supportEventDto, Instant timestamp) {
+        // TODO remove army from village and validate if enough troops are present to send the support
+        // TODO add generation resource event before adding other event
         this.supportEventFacade.addSupportEvent(supportEventDto, timestamp);
     }
 
     @Override
     public void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp) {
+        // TODO remove resources from village and check if there are enough resources to send
+        // TODO add generation resource event before adding other event
         this.transportEventFacade.addTransportEvent(transportEventDto, timestamp);
     }
 

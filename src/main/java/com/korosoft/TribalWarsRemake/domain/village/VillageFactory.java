@@ -8,6 +8,7 @@ import com.korosoft.TribalWarsRemake.domain.worldgen.village.spots.Spot;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +18,14 @@ public class VillageFactory {
 
     private final VillageRepository villageRepository;
     private final ResourcesFacade resourcesFacade;
+    private final Clock clock;
 
     public Village createVillage(Spot spot, Player owner) {
         return this.createVillage(spot, owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName()));
     }
 
     public Village createVillage(Spot spot, Player owner, String name) {
-        Village village = new Village(spot, owner, name, this.resourcesFacade.createResources());
+        Village village = new Village(spot, owner, name, this.resourcesFacade.createResources(), clock.instant());
         this.villageRepository.save(village);
         return village;
     }
@@ -42,7 +44,7 @@ public class VillageFactory {
         List<Village> villages = new ArrayList<>();
         for (int i = 0; i < spots.size(); i++) {
             Player owner = players.get(i);
-            villages.add(new Village(spots.get(i), owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName()), this.resourcesFacade.createResources()));
+            villages.add(new Village(spots.get(i), owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName()), this.resourcesFacade.createResources(), clock.instant()));
         }
         this.villageRepository.saveAll(villages);
         return villages;
