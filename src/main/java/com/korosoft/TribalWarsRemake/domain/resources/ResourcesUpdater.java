@@ -11,7 +11,6 @@ import java.time.Instant;
 @AllArgsConstructor
 class ResourcesUpdater {
 
-    private final ResourcesFacade resourcesFacade;
     private final ResourcesGenerator resourcesGenerator;
 
     void update(Village village, Instant now) {

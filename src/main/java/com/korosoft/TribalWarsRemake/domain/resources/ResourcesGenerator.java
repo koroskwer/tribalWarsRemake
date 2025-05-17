@@ -10,16 +10,17 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 class ResourcesGenerator {
 
-    private final ResourcesFacade resourcesFacade;
+    private final ResourcesFactory resourcesFactory;
+    private final ResourcesMerger resourcesMerger;
     private final BuildingsFacade buildingsFacade;
 
     Resources generateResources(Resources currentResources, long passedSeconds, int villageId) {
         ResourcePitsLevelsDto resourcePitsLevelsDto = this.buildingsFacade.getResourcePitLevels(villageId);
-        Resources resourcesToAdd = this.resourcesFacade.createResources(
+        Resources resourcesToAdd = this.resourcesFactory.createResources(
                 this.generateResource(resourcePitsLevelsDto.woodPit(), passedSeconds),
                 this.generateResource(resourcePitsLevelsDto.clayPit(), passedSeconds),
                 this.generateResource(resourcePitsLevelsDto.ironPit(), passedSeconds));
-        return this.resourcesFacade.mergeResources(resourcesToAdd, currentResources);
+        return this.resourcesMerger.merge(resourcesToAdd, currentResources);
     }
 
     private int generateResource(int buildingLevel, long passedSeconds){
