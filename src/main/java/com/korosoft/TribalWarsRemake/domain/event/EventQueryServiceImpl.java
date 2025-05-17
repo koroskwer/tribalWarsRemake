@@ -8,6 +8,7 @@ import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.support.SupportEventFacade;
 import com.korosoft.TribalWarsRemake.domain.event.transport.TransportEventFacade;
 import com.korosoft.TribalWarsRemake.domain.player.Player;
+import com.korosoft.TribalWarsRemake.domain.resources.ResourcesFacade;
 import com.korosoft.TribalWarsRemake.domain.root.AbstractQueryServiceRoot;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -37,22 +38,16 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
 
     @Override
     public void addAttackEvent(AttackEventDto attackEventDto, Instant timestamp) {
-        // TODO remove army from village and validate if enough troops are present to send the attack
-        // TODO add generation resource event before adding other event
         this.attackEventFacade.addAttackEvent(attackEventDto, timestamp);
     }
 
     @Override
     public void addSupportEvent(SupportEventDto supportEventDto, Instant timestamp) {
-        // TODO remove army from village and validate if enough troops are present to send the support
-        // TODO add generation resource event before adding other event
         this.supportEventFacade.addSupportEvent(supportEventDto, timestamp);
     }
 
     @Override
     public void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp) {
-        // TODO remove resources from village and check if there are enough resources to send
-        // TODO add generation resource event before adding other event
         this.transportEventFacade.addTransportEvent(transportEventDto, timestamp);
     }
 

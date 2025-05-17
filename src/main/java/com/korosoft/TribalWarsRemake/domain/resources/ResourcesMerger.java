@@ -1,6 +1,5 @@
 package com.korosoft.TribalWarsRemake.domain.resources;
 
-
 import org.springframework.stereotype.Component;
 
 @Component

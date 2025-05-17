@@ -5,6 +5,9 @@ import com.korosoft.TribalWarsRemake.domain.event.dto.SupportEventDto;
 import com.korosoft.TribalWarsRemake.domain.event.dto.TransportEventDto;
 import com.korosoft.TribalWarsRemake.domain.player.Player;
 import com.korosoft.TribalWarsRemake.domain.player.repository.PlayerRepository;
+import com.korosoft.TribalWarsRemake.domain.resources.ResourcesFacade;
+import com.korosoft.TribalWarsRemake.domain.village.Village;
+import com.korosoft.TribalWarsRemake.domain.village.VillageFacade;
 import jakarta.persistence.LockModeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Lock;
@@ -20,17 +23,22 @@ import java.util.stream.Collectors;
 @Component
 public class EventServiceFacade {
 
+    private final ResourcesFacade resourcesFacade;
+    private final VillageFacade villageFacade;
     private final EventQueryServiceImpl eventQueryService;
     private final PlayerRepository playerRepository;
     private final Map<EventType, EventProcessor> processEventServiceMap;
     private final Clock clock;
 
     @Autowired
-    EventServiceFacade(EventQueryServiceImpl eventQueryService, PlayerRepository playerRepository, List<EventProcessor> eventProcessorList, Clock clock) {
+    EventServiceFacade(ResourcesFacade resourcesFacade, VillageFacade villageFacade, EventQueryServiceImpl eventQueryService,
+                       PlayerRepository playerRepository, List<EventProcessor> eventProcessorList, Clock clock) {
         this.eventQueryService = eventQueryService;
         this.playerRepository = playerRepository;
         this.processEventServiceMap = eventProcessorList.stream().collect(Collectors.toMap(EventProcessor::getEventType, Function.identity()));
         this.clock = clock;
+        this.resourcesFacade = resourcesFacade;
+        this.villageFacade = villageFacade;
     }
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -38,7 +46,7 @@ public class EventServiceFacade {
     public void processEvents(int playerId) {
         Instant now = clock.instant();
         PriorityQueue<AbstractEvent> queue = this.gatherEvents(playerId, now);
-        Optional<Player> playerOptional = playerRepository.findById(playerId);
+        Optional<Player> playerOptional = this.playerRepository.findById(playerId);
         if (playerOptional.isPresent()) {
             Player player = playerOptional.get();
             this.processEvents(queue, player);
@@ -55,16 +63,28 @@ public class EventServiceFacade {
 
     public void createAttackEvent(AttackEventDto attackEventDto) {
         Instant now = clock.instant();
+        Village village = this.villageFacade.getVillage(attackEventDto.getTargetVillageId());
+        this.resourcesFacade.updateResources(village, now);
+        // TODO remove army from village and validate if enough troops are present to send the attack
+        // TODO process events before validating for resources
         this.eventQueryService.addAttackEvent(attackEventDto, now);
     }
 
     public void createSupportEvent(SupportEventDto supportEventDto) {
         Instant now = clock.instant();
+        Village village = this.villageFacade.getVillage(supportEventDto.getTargetVillageId());
+        this.resourcesFacade.updateResources(village, now);
+        // TODO remove army from village and validate if enough troops are present to send the support
+        // TODO process events before validating for resources
         this.eventQueryService.addSupportEvent(supportEventDto, now);
     }
 
     public void createTransportEvent(TransportEventDto transportEventDto) {
         Instant now = clock.instant();
+        Village village = this.villageFacade.getVillage(transportEventDto.getTargetVillageId());
+        this.resourcesFacade.updateResources(village, now);
+        // TODO remove resources from village and check if there are enough resources to send
+        // TODO process events before validating for resources
         this.eventQueryService.addTransportEvent(transportEventDto, now);
     }
 

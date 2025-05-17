@@ -18,6 +18,8 @@ public class TransportEventDto extends AbstractEventDto implements Serializable 
 
     @JsonProperty("resources")
     private ResourcesDto resourcesDto;
+    private int sourceVillageId;
+    private int targetVillageId;
 
     public TransportEventDto(EventStatus eventStatus, EventType eventType, Instant startTime, Instant endTime, List<Integer> playerIds) {
         super(eventStatus, eventType, startTime, endTime, playerIds);
