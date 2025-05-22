@@ -23,12 +23,12 @@ public class Village extends AbstractEntityMapObject {
 
     @Column(nullable = false)
     private String name;
-
+    
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id", nullable = false)
     private Player owner;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "resources_id", referencedColumnName = "id", nullable = false)
     private Resources resources;
 

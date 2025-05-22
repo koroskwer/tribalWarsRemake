@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 class ResourcesMerger {
 
     Resources merge(Resources r1, Resources r2) {
-        return new Resources(r1.getWood() + r2.getWood(), r1.getClay()+r2.getClay(), r1.getIron()+r2.getIron());
+        r1.setClay(r1.getClay() + r2.getClay());
+        r1.setWood(r1.getWood() + r2.getWood());
+        r1.setIron(r1.getIron() + r2.getIron());
+        return r1;
     }
 }

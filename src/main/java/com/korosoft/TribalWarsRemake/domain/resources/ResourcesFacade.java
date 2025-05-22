@@ -3,6 +3,8 @@ package com.korosoft.TribalWarsRemake.domain.resources;
 import com.korosoft.TribalWarsRemake.domain.village.Village;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 

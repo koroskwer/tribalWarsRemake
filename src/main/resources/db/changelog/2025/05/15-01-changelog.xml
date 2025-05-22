@@ -27,11 +27,6 @@
                                  constraintName="FK_SUPPORT_EVENTS_ON_TARGETVILLAGE" referencedColumnNames="id"
                                  referencedTableName="villages"/>
     </changeSet>
-    <changeSet id="1747337592108-11" author="admin">
-        <addForeignKeyConstraint baseColumnNames="abstract_event_entity_id" baseTableName="events_root_involved_players"
-                                 constraintName="fk_everooinvpla_on_abstract_event_entity" referencedColumnNames="id"
-                                 referencedTableName="events_root"/>
-    </changeSet>
     <changeSet id="1747337592108-16" author="admin">
         <dropColumn columnName="pikemen" tableName="support_events"/>
     </changeSet>

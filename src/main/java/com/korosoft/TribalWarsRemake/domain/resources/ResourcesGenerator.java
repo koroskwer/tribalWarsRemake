@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 class ResourcesGenerator {
 
+    private static final double HOUR = 3600L;
     private final ResourcesFactory resourcesFactory;
     private final ResourcesMerger resourcesMerger;
     private final BuildingsFacade buildingsFacade;
@@ -20,11 +21,11 @@ class ResourcesGenerator {
                 this.generateResource(resourcePitsLevelsDto.woodPit(), passedSeconds),
                 this.generateResource(resourcePitsLevelsDto.clayPit(), passedSeconds),
                 this.generateResource(resourcePitsLevelsDto.ironPit(), passedSeconds));
-        return this.resourcesMerger.merge(resourcesToAdd, currentResources);
+        return this.resourcesMerger.merge(currentResources, resourcesToAdd);
     }
 
     private int generateResource(int buildingLevel, long passedSeconds){
-        return Math.toIntExact(ResourceGenerationConstants.DEFAULT_RESOURCE_GENERATION_PER_BUILDING_LEVEL[buildingLevel] * (passedSeconds / 3600));
+        return (int) (ResourceGenerationConstants.DEFAULT_RESOURCE_GENERATION_PER_BUILDING_LEVEL[buildingLevel] * (passedSeconds / HOUR));
     }
 
 }

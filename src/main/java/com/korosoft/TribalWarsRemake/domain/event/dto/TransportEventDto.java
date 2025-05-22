@@ -21,8 +21,11 @@ public class TransportEventDto extends AbstractEventDto implements Serializable 
     private int sourceVillageId;
     private int targetVillageId;
 
-    public TransportEventDto(EventStatus eventStatus, EventType eventType, Instant startTime, Instant endTime, List<Integer> playerIds) {
+    public TransportEventDto(ResourcesDto dto, EventStatus eventStatus, EventType eventType, Instant startTime,
+                             Instant endTime, List<Integer> playerIds, int sourceVillageId, int targetVillageId) {
         super(eventStatus, eventType, startTime, endTime, playerIds);
-        this.resourcesDto = null;
+        this.resourcesDto = dto;
+        this.sourceVillageId = sourceVillageId;
+        this.targetVillageId = targetVillageId;
     }
 }

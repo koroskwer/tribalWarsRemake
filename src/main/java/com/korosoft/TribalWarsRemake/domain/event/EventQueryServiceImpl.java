@@ -12,6 +12,8 @@ import com.korosoft.TribalWarsRemake.domain.resources.ResourcesFacade;
 import com.korosoft.TribalWarsRemake.domain.root.AbstractQueryServiceRoot;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -36,16 +38,19 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
         return list;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void addAttackEvent(AttackEventDto attackEventDto, Instant timestamp) {
         this.attackEventFacade.addAttackEvent(attackEventDto, timestamp);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void addSupportEvent(SupportEventDto supportEventDto, Instant timestamp) {
         this.supportEventFacade.addSupportEvent(supportEventDto, timestamp);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void addTransportEvent(TransportEventDto transportEventDto, Instant timestamp) {
         this.transportEventFacade.addTransportEvent(transportEventDto, timestamp);
