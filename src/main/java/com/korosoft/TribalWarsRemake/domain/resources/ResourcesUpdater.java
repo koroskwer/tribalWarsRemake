@@ -19,6 +19,7 @@ class ResourcesUpdater {
         Duration duration = Duration.between(village.getLastResourceGeneration(), now);
         long secondsSinceLastUpdate = duration.getSeconds();
         village.setResources(this.resourcesGenerator.generateResources(village.getResources(), secondsSinceLastUpdate, village.getId()));
+        village.setLastResourceGeneration(now);
         this.villageRepository.save(village);
     }
 }
