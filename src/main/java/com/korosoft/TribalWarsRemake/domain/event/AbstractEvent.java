@@ -11,7 +11,7 @@ import lombok.Getter;
 @MappedSuperclass
 public class AbstractEvent extends AbstractEntityRoot {
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(nullable = false, name = "event_root_id")
     protected AbstractEventEntity eventRoot;
 }

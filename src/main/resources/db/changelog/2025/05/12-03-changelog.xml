@@ -71,17 +71,17 @@
     <changeSet id="1747061949196-20" author="admin">
         <addForeignKeyConstraint baseColumnNames="event_root_id" baseTableName="attack_events"
                                  constraintName="FK_ATTACK_EVENTS_ON_EVENTROOT" referencedColumnNames="id"
-                                 referencedTableName="events_root"/>
+                                 referencedTableName="events_root" deleteCascade="true"/>
     </changeSet>
     <changeSet id="1747061949196-21" author="admin">
         <addForeignKeyConstraint baseColumnNames="event_root_id" baseTableName="support_events"
                                  constraintName="FK_SUPPORT_EVENTS_ON_EVENTROOT" referencedColumnNames="id"
-                                 referencedTableName="events_root"/>
+                                 referencedTableName="events_root" deleteCascade="true"/>
     </changeSet>
     <changeSet id="1747061949196-22" author="admin">
         <addForeignKeyConstraint baseColumnNames="event_root_id" baseTableName="transport_events"
                                  constraintName="FK_TRANSPORT_EVENTS_ON_EVENTROOT" referencedColumnNames="id"
-                                 referencedTableName="events_root"/>
+                                 referencedTableName="events_root" deleteCascade="true"/>
     </changeSet>
     <changeSet id="1747061949196-23" author="admin">
         <addForeignKeyConstraint baseColumnNames="abstract_event_id" baseTableName="events_root_involved_players"

@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 import java.time.Instant;
 import java.util.List;
@@ -37,6 +36,5 @@ public class AbstractEventEntity extends AbstractEntityRoot {
     protected Instant finishDate;
 
     @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     protected List<Player> involvedPlayers;
 }

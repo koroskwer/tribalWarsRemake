@@ -59,9 +59,12 @@ class EventQueryServiceImpl extends AbstractQueryServiceRoot implements EventQue
     @Override
     public void deleteEvents(int playerId, Instant timestamp) {
         //TODO log result of this query
+
+        /*  //TODO add this later
+       .and(Q_ABSTRACT_EVENT.involvedPlayers.contains((this.entityManager.getReference(Player.class, playerId)))
+         */
         this.getQueryFactory().delete(Q_ABSTRACT_EVENT)
                 .where(Q_ABSTRACT_EVENT.finishDate.before(timestamp)
-                        .and(Q_ABSTRACT_EVENT.involvedPlayers.contains((this.entityManager.getReference(Player.class, playerId)))
-                                .and(Q_ABSTRACT_EVENT.eventStatus.eq(EventStatus.READY)))).execute();
+                                .and(Q_ABSTRACT_EVENT.eventStatus.eq(EventStatus.READY))).execute();
     }
 }

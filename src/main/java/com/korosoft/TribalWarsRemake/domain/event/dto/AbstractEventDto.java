@@ -1,5 +1,6 @@
 package com.korosoft.TribalWarsRemake.domain.event.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.korosoft.TribalWarsRemake.domain.event.EventStatus;
 import com.korosoft.TribalWarsRemake.domain.event.EventType;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,9 @@ import java.util.List;
 public abstract class AbstractEventDto {
     protected EventStatus eventStatus;
     protected EventType eventType;
+    @JsonIgnore
     protected Instant startTime;
+    @JsonIgnore
     protected Instant endTime;
     protected List<Integer> playerIds;
 }
