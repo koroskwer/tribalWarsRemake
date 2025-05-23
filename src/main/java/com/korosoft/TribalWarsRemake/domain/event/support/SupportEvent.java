@@ -6,6 +6,7 @@ import com.korosoft.TribalWarsRemake.domain.event.AbstractEvent;
 import com.korosoft.TribalWarsRemake.domain.event.AbstractEventEntity;
 import com.korosoft.TribalWarsRemake.domain.event.EventStatus;
 import com.korosoft.TribalWarsRemake.domain.event.EventType;
+import com.korosoft.TribalWarsRemake.domain.player.Player;
 import com.korosoft.TribalWarsRemake.domain.village.Village;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -31,7 +32,10 @@ class SupportEvent extends AbstractEvent {
     @OneToOne
     private Village sourceVillage;
 
-    SupportEvent(Instant start, Instant end) {
-        this.eventRoot = new AbstractEventEntity(EventStatus.READY, EventType.TRANSPORT, start, end, List.of());
+    SupportEvent(EventStatus status, EventType type, Instant startDate, Instant endDate, List<Player> players, Village targetVillage, Village sourceVillage, Army army) {
+        this.eventRoot = new AbstractEventEntity(status, type, startDate, endDate, players);
+        this.targetVillage = targetVillage;
+        this.sourceVillage = sourceVillage;
+        this.army = army;
     }
 }

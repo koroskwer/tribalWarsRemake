@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -44,7 +43,8 @@ public class Village extends AbstractEntityMapObject {
         this.name = name;
         this.owner = owner;
         this.resources = resources;
-        this.armies = new HashSet<>();
+        //TODO remove this arbitrary amount of units after developing unit creation events
+        this.armies = Set.of(new Army(1000, this));
         this.lastResourceGeneration = lastResourceGeneration;
     }
 }

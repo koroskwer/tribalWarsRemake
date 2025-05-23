@@ -61,26 +61,29 @@ public class EventServiceFacade {
         System.out.println("No player found with id " + playerId);
     }
 
+    @Transactional
     public void createAttackEvent(AttackEventDto attackEventDto) {
         Instant now = this.clock.instant();
         this.setTimesInEvent(attackEventDto, EventType.ATTACK, now);
         Village village = this.villageFacade.getVillage(attackEventDto.getTargetVillageId());
         this.resourcesFacade.updateResources(village, now);
-        // TODO remove army from village and validate if enough troops are present to send the attack
-        // TODO process events before validating for resources
+        //TODO unmock player ID
+        this.processEvents(5);
         this.eventQueryService.addAttackEvent(attackEventDto, now);
     }
 
+    @Transactional
     public void createSupportEvent(SupportEventDto supportEventDto) {
         Instant now = this.clock.instant();
         this.setTimesInEvent(supportEventDto, EventType.SUPPORT, now);
         Village village = this.villageFacade.getVillage(supportEventDto.getTargetVillageId());
         this.resourcesFacade.updateResources(village, now);
-        // TODO remove army from village and validate if enough troops are present to send the support
-        // TODO process events before validating for resources
+        //TODO unmock player ID
+        this.processEvents(5);
         this.eventQueryService.addSupportEvent(supportEventDto, now);
     }
 
+    @Transactional
     public void createTransportEvent(TransportEventDto transportEventDto) {
         Instant now = this.clock.instant();
         this.setTimesInEvent(transportEventDto, EventType.TRANSPORT, now);

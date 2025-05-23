@@ -16,6 +16,6 @@ class AttackEventCreationService implements AbstractEventCreationService<AttackE
 
     @Override
     public void addEvent(AttackEventDto eventDto, Instant timestamp) {
-        this.attackEventRepository.save(this.attackEventFactory.createAttackEvent());
+        this.attackEventRepository.save(this.attackEventFactory.createAttackEvent(eventDto));
     }
 }

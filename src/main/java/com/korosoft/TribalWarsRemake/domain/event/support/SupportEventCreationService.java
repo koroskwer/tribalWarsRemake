@@ -16,6 +16,6 @@ class SupportEventCreationService implements AbstractEventCreationService<Suppor
 
     @Override
     public void addEvent(SupportEventDto eventDto, Instant timestamp) {
-        this.supportEventFactory.createSupportEvent();
+        this.supportEventRepository.save(this.supportEventFactory.createSupportEvent(eventDto));
     }
 }

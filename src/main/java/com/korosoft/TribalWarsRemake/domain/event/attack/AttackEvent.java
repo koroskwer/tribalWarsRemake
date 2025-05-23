@@ -6,10 +6,12 @@ import com.korosoft.TribalWarsRemake.domain.event.AbstractEventEntity;
 import com.korosoft.TribalWarsRemake.domain.event.EventStatus;
 import com.korosoft.TribalWarsRemake.domain.event.EventType;
 import com.korosoft.TribalWarsRemake.domain.event.dto.AttackEventDto;
+import com.korosoft.TribalWarsRemake.domain.player.Player;
 import com.korosoft.TribalWarsRemake.domain.village.Village;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,10 +31,10 @@ class AttackEvent extends AbstractEvent {
     @OneToOne
     private Village sourceVillage;
 
-    AttackEvent(AttackEventDto dto, Instant startDate, Instant endDate, Village targetVillage, Village sourceVillage) {
-        this.eventRoot = new AbstractEventEntity(EventStatus.READY, EventType.ATTACK, startDate, endDate, List.of());
-        this.army = new Army(dto.getArmy().pikemen(), sourceVillage);
+    AttackEvent(EventStatus status, EventType type, Instant startDate, Instant endDate, List<Player> players, Village targetVillage, Village sourceVillage, Army army) {
+        this.eventRoot = new AbstractEventEntity(status, type, startDate, endDate, players);
         this.targetVillage = targetVillage;
         this.sourceVillage = sourceVillage;
+        this.army = army;
     }
 }
