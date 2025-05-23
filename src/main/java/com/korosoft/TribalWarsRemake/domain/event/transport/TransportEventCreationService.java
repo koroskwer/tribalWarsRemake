@@ -10,7 +10,7 @@ import java.time.Instant;
 
 @Component
 @AllArgsConstructor
-public class TransportEventCreationService extends AbstractQueryServiceRoot implements AbstractEventCreationService<TransportEventDto> {
+class TransportEventCreationService extends AbstractQueryServiceRoot implements AbstractEventCreationService<TransportEventDto> {
 
     private final TransportEventRepository transportEventRepository;
     private final TransportEventFactory transportEventFactory;

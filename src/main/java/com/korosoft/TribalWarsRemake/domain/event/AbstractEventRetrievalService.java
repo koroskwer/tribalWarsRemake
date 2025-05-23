@@ -8,5 +8,12 @@ import java.util.List;
  * @param <T> Class that extends {@link AbstractEvent}
  */
 public interface AbstractEventRetrievalService<T extends AbstractEvent> {
+    String QUERY_BASE = """
+                        select p
+                        from %s p
+                        where p.eventRoot.eventStatus = :status and p.eventRoot.finishDate < :timestamp
+                        order by p.id
+                        """;
+
     List<T> getEvents(int playerId, Instant timestamp);
 }

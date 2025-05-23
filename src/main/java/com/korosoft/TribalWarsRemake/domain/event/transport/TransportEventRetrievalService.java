@@ -14,12 +14,7 @@ import java.util.List;
 class TransportEventRetrievalService extends AbstractQueryServiceRoot implements AbstractEventRetrievalService<TransportEvent> {
     @Override
     public List<TransportEvent> getEvents(int playerId, Instant timestamp) {
-        return entityManager.createQuery("""
-                        select p
-                        from TransportEvent p
-                        where p.eventRoot.eventStatus = :status and p.eventRoot.finishDate < :timestamp
-                        order by p.id
-                        """, TransportEvent.class)
+        return this.entityManager.createQuery(String.format(QUERY_BASE, "TransportEvent"), TransportEvent.class)
                 .setParameter("status", EventStatus.READY)
                 .setParameter("timestamp", timestamp)
                 .unwrap(Query.class)

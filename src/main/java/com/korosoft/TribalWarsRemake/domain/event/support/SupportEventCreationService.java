@@ -9,7 +9,7 @@ import java.time.Instant;
 
 @Component
 @AllArgsConstructor
-public class SupportEventCreationService implements AbstractEventCreationService<SupportEventDto> {
+class SupportEventCreationService implements AbstractEventCreationService<SupportEventDto> {
 
     private final SupportEventRepository supportEventRepository;
     private final SupportEventFactory supportEventFactory;

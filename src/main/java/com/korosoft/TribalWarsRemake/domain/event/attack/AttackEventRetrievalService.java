@@ -14,12 +14,7 @@ import java.util.List;
 class AttackEventRetrievalService extends AbstractQueryServiceRoot implements AbstractEventRetrievalService<AttackEvent> {
     @Override
     public List<AttackEvent> getEvents(int playerId, Instant timestamp) {
-        return entityManager.createQuery("""
-                        select p
-                        from AttackEvent p
-                        where p.eventRoot.eventStatus = :status and p.eventRoot.finishDate < :timestamp
-                        order by p.id
-                        """, AttackEvent.class)
+        return this.entityManager.createQuery(String.format(QUERY_BASE, "AttackEvent"), AttackEvent.class)
                 .setParameter("status", EventStatus.READY)
                 .setParameter("timestamp", timestamp)
                 .unwrap(Query.class)
