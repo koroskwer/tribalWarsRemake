@@ -44,7 +44,7 @@ public class VillageFactory {
         List<Village> villages = new ArrayList<>();
         for (int i = 0; i < spots.size(); i++) {
             Player owner = players.get(i);
-            villages.add(new Village(spots.get(i), owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName()), this.resourcesFacade.createResources(), clock.instant()));
+            villages.add(new Village(spots.get(i), owner, String.format(GameConstants.DEFAULT_VILLAGE_NAME, owner.getName()), this.resourcesFacade.createDebugResources(), this.clock.instant()));
         }
         this.villageRepository.saveAll(villages);
         return villages;

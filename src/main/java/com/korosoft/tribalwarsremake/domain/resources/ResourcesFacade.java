@@ -23,6 +23,11 @@ public class ResourcesFacade {
         return this.resourcesFactory.createResources();
     }
 
+    //TODO remove this debug function
+    public Resources createDebugResources() {
+        return this.resourcesFactory.createResources(20000, 20000, 20000);
+    }
+
     public Resources createResources(int wood, int clay, int iron) {
         return this.resourcesFactory.createResources(wood, clay, iron);
     }
