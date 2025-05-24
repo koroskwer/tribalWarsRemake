@@ -17,7 +17,8 @@ public class ArmyFacade {
 
     /**
      * Creates a new army object which troops are subtracted from given army object
-     * @param army Original army
+     *
+     * @param army    Original army
      * @param armyDto Definition of new army object
      * @return New army object defined by the dto
      */
@@ -27,6 +28,7 @@ public class ArmyFacade {
 
     /**
      * Merges second army object into the first one
+     *
      * @param army1 army to be merged into
      * @param army2 army to be merged from
      * @return army1 object with added army2 data
