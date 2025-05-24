@@ -30,7 +30,7 @@ class TransportEventFactory {
         Village targetVillage = this.villageFacade.getVillageReference(transportEventDto.getTargetVillageId());
         List<Player> playerList = this.playerRepository.findAllById(transportEventDto.getPlayerIds());
         ResourcesDto resourcesDto = transportEventDto.getResourcesDto();
-        Resources resources = this.resourcesFacade.createResources(resourcesDto.wood(), resourcesDto.clay(), resourcesDto.iron());
+        Resources resources = this.resourcesFacade.splitResources(sourceVillage.getResources(), resourcesDto);
         return new TransportEvent(transportEventDto.getEventStatus(), transportEventDto.getEventType(), transportEventDto.getStartTime(),
                 transportEventDto.getEndTime(), playerList, resources, targetVillage, sourceVillage);
     }

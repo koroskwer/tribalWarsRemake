@@ -91,6 +91,8 @@ public class EventServiceFacade {
         this.resourcesFacade.updateResources(village, now);
         // TODO remove resources from village and check if there are enough resources to send
         // TODO process events before validating for resources
+        //TODO unmock player ID
+        this.processEvents(5);
         this.eventQueryService.addTransportEvent(transportEventDto, now);
     }
 

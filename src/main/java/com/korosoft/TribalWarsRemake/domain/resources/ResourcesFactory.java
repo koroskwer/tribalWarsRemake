@@ -14,4 +14,8 @@ class ResourcesFactory {
     public Resources createResources(int wood, int clay, int iron) {
         return new Resources(iron, clay, wood);
     }
+
+    public Resources createResources(ResourcesDto resourcesDto) {
+        return new Resources(resourcesDto.wood(), resourcesDto.clay(), resourcesDto.iron());
+    }
 }

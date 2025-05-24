@@ -3,8 +3,6 @@ package com.korosoft.TribalWarsRemake.domain.resources;
 import com.korosoft.TribalWarsRemake.domain.village.Village;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
@@ -15,6 +13,7 @@ public class ResourcesFacade {
     private final ResourcesMerger resourcesMerger;
     private final ResourcesFactory resourcesFactory;
     private final ResourcesUpdater resourcesUpdater;
+    private final ResourcesSplitter resourcesSplitter;
 
     public Resources mergeResources(Resources resources1, Resources resources2) {
         return this.resourcesMerger.merge(resources1, resources2);
@@ -30,5 +29,17 @@ public class ResourcesFacade {
 
     public void updateResources(Village village, Instant now) {
         this.resourcesUpdater.update(village, now);
+    }
+
+
+    /**
+     * Substracts the individual resources from original Resources object by using data from resourcesDto
+     * and returns the newly created resources object, which contains the data from dto.
+     * @param resources Original resources object
+     * @param resourcesDto Object holding data used for creation of new resource
+     * @return Resource object created basing on resourcesDto
+     */
+    public Resources splitResources(Resources resources, ResourcesDto resourcesDto) {
+        return this.resourcesSplitter.split(resources, resourcesDto);
     }
 }
