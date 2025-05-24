@@ -3,6 +3,8 @@ package com.korosoft.tribalwarsremake.domain.army;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 @Component
 @AllArgsConstructor
 public class ArmyFacade {
@@ -35,5 +37,21 @@ public class ArmyFacade {
      */
     public Army mergeArmies(Army army1, Army army2) {
         return this.armyMerger.merge(army1, army2);
+    }
+
+    public void deleteArmies(Set<Army> armies) {
+        this.armyRepository.deleteAll(armies);
+    }
+
+    public void deleteArmy(Army army) {
+        this.armyRepository.delete(army);
+    }
+
+    public void saveArmy(Army army) {
+        this.armyRepository.save(army);
+    }
+
+    public void saveArmies(Set<Army> armies) {
+        this.armyRepository.saveAll(armies);
     }
 }

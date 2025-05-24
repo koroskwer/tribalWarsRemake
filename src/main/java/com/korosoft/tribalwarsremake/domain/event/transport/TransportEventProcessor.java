@@ -16,8 +16,8 @@ class TransportEventProcessor implements EventProcessor<TransportEvent> {
 
     @Override
     public void processEvent(TransportEvent event, Player player) {
-        Resources mergedResources = this.resourcesFacade.mergeResources(event.getResources(), event.getSourceVillage().getResources());
-        event.getSourceVillage().setResources(mergedResources);
+        Resources mergedResources = this.resourcesFacade.mergeResources(event.getResources(), event.getTargetVillage().getResources());
+        event.getTargetVillage().setResources(mergedResources);
     }
 
     @Override
